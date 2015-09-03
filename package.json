@@ -1,0 +1,34 @@
+{
+  "name": "viktor-nv1-engine",
+  "version": "1.0.0",
+  "description": "The audio engine of the Viktor NV-1 Synthesizer.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicroto/viktor-nv1-engine.git"
+  },
+  "keywords": [
+    "synth",
+    "webaudio",
+    "engine"
+  ],
+  "author": "Nikolay Tsenkov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicroto/viktor-nv1-engine/issues"
+  },
+  "homepage": "https://github.com/nicroto/viktor-nv1-engine",
+  "dependencies": {
+    "viktor-nv1-settings-convertor": "^1.0.1"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-release": "^0.13.0",
+    "grunt-simple-mocha": "^0.4.0",
+    "should": "^7.1.0"
+  }
+}
