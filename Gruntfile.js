@@ -42,7 +42,6 @@ module.exports = function(grunt) {
 	// task loading
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-simple-mocha' );
-	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-release');
 
 	// ci task
