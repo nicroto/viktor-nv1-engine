@@ -834,11 +834,14 @@ Subscribe for change of selection notification.
 
 **Returns:** `undefined`.
 
-#### `patchLibrary.getUniqueName()`
+#### `patchLibrary.getUniqueName( str )`
 
 If you show a form on saving a patch, you need to suggest a name that doesn't conflict with the current names (name has to be unique).
 
-**Returns:** `String`, non-existent in the library patch name.
+**Params:**
+ * str: `String` name to be used as a base of the name.
+
+**Returns:** `String`, "Custom nameN" (N is iterated until no duplication), or "[str]N" if str is passed.
 
 #### `patchLibrary.saveCustom( patchName, patch )`
 
@@ -892,6 +895,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.1.1
+ 	 * Add: PatchLibrary: getUniqueName( str );
  * 1.1
  	 * Add: backward compatibility for patches exported from older versions of the engine;
  	 * Improve: patch size (cut down to 43% of previous size);

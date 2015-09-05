@@ -130,14 +130,16 @@ Library.prototype = {
 		self._selectionChangeHandlers.push( handler );
 	},
 
-	getUniqueName: function() {
+	getUniqueName: function( str ) {
 		var self = this,
 			names = self.getDefaultNames().concat( self.getCustomNames() ),
 			count = 0,
 			result;
 
+		str = str ? str : UNSAVED_NAME;
+
 		while( !result && count < 1000 ) {
-			var name = UNSAVED_NAME + ( ++count );
+			var name = str + ( ++count );
 			if ( names.indexOf( name ) === -1 ) {
 				result = name;
 				break;
