@@ -790,6 +790,23 @@ var PatchLibrary = require( "viktor-nv1-engine" ).PatchLibrary;
 }
 ```
 
+#### `patchLibrary.getPatch( patchName )`
+
+Searches the library (both default and custom) for a patch with the provided name.
+
+**Params:**
+ * patchName: `String`, the name of the requested patch.
+
+**Returns:** undefined if not found, or `Object` with this structure:
+
+```javascript
+{
+	name: String,
+	patch: NV1Patch, /* check the docs for daw.loadPatch() for reference */,
+	isCustom: Boolean, /* optional */
+}
+```
+
 #### `patchLibrary.preserveUnsaved( patch )`
 
 If you want to preserve custom, yet unsaved by the user patches, between browser reloads, this is the method to call on every change he/she makes.
@@ -895,8 +912,10 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.1.2
+ 	 * Add: PatchLibrary: getPatch( patchName ).
  * 1.1.1
- 	 * Add: PatchLibrary: getUniqueName( str );
+ 	 * Add: PatchLibrary: getUniqueName( str ).
  * 1.1
  	 * Add: backward compatibility for patches exported from older versions of the engine;
  	 * Improve: patch size (cut down to 43% of previous size);

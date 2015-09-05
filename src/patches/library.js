@@ -72,6 +72,30 @@ Library.prototype = {
 		return result;
 	},
 
+	getPatch: function( patchName ) {
+		var self = this,
+			defaultPatches = self.defaultPatches,
+			customPatches = self.customPatches,
+			defaultMatch = defaultPatches[ patchName ],
+			customMatch = customPatches[ patchName ],
+			result;
+
+		if ( defaultMatch ) {
+			result = {
+				name: patchName,
+				patch: defaultMatch
+			};
+		} else if ( customMatch ) {
+			result = {
+				name: patchName,
+				patch: customMatch,
+				isCustom: true
+			};
+		}
+
+		return result;
+	},
+
 	preserveUnsaved: function( patch ) {
 		var self = this,
 			store = self.store,

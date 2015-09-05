@@ -1,7 +1,8 @@
 'use strict';
 
 var should = require( "should" ),
-	PatchLibrary = require( "../src/patches/library" );
+	PatchLibrary = require( "../src/patches/library" ),
+	defaultLibrary = require( "../src/patches/defaults" );
 
 var mockStore = {
 
@@ -36,7 +37,7 @@ var mockStore = {
 
 var beforeEachFunc = function() {
 	mockStore.clear();
-	patchLibrary = new PatchLibrary( "VIKTOR_SYNTH", require( "../src/patches/defaults" ), mockStore );
+	patchLibrary = new PatchLibrary( "VIKTOR_SYNTH", defaultLibrary, mockStore );
 };
 
 describe( "PatchLibrary", function() {
@@ -61,6 +62,39 @@ describe( "PatchLibrary", function() {
 		it( "iterates using the passed string, if duplication is present", function() {
 			patchLibrary.saveCustom( "test1", {} );
 			patchLibrary.getUniqueName( "test" ).should.equal( "test2" );
+		} );
+
+	} );
+
+	describe( "getPatch( patchName )", function() {
+
+		beforeEach( beforeEachFunc );
+
+		it( "returns undefined if no patch under this name", function() {
+			should.not.exist( patchLibrary.getPatch( "non-existent patch name" ) );
+		} );
+
+		it( "returns the patch if defined in the default library", function() {
+			var firstPatchName = Object.keys( defaultLibrary )[ 0 ],
+				patch = patchLibrary.getPatch( firstPatchName );
+
+			patch.should.eql( {
+				name: firstPatchName,
+				patch: defaultLibrary[ firstPatchName ]
+			} );
+		} );
+
+		it( "returns the patch if defined in the cusotm library", function() {
+			var patchName = "new patch",
+				patchMock = {};
+
+			patchLibrary.customPatches[ patchName ] = patchMock;
+
+			patchLibrary.getPatch( patchName ).should.eql( {
+				name: patchName,
+				patch: patchMock,
+				isCustom: true
+			} );
 		} );
 
 	} );
