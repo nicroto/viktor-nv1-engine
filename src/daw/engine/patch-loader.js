@@ -1,0 +1,130 @@
+'use strict';
+
+var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
+	CONST = require( "./const" ),
+	ENGINE_VERSION_1 = 1,
+	ENGINE_VERSION_2 = 2,
+	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
+
+var patchLoader = {
+
+	load: function( patch ) {
+		var self = this,
+			currentVersion = self._getVersion( patch ),
+			alteredPatch = JSON.parse( JSON.stringify( patch ) ); // clone
+
+		switch( currentVersion ) {
+
+			case ENGINE_VERSION_1:
+				alteredPatch = self._loadVersion1Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_2:
+				alteredPatch = self._loadVersion2Patch( alteredPatch );
+				break;
+
+			default:
+				break; // will return null
+
+		}
+
+		return alteredPatch;
+	},
+
+	prepareForSerialization: function( patch ) {
+		var self = this;
+
+		// strip ranges
+		self._iterateTrees( patch, null, function( node, key ) {
+			var prop = node[ key ],
+				isLeaf = ( prop && prop.range && prop.range.length && prop.range.length === 2 && prop.value !== undefined );
+
+			if ( isLeaf ) {
+				node[ key ] = prop.value;
+			}
+
+			return isLeaf;
+		} );
+	},
+
+	_getVersion: function( patch ) {
+		var version = 1;
+		if ( patch.version ) {
+			version = patch.version;
+		}
+
+		return version;
+	},
+
+	_loadVersion1Patch: function( patch ) {
+		return patch; // ... as it is
+	},
+
+	_loadVersion2Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_2,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._transposeRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_transposeRanges: function( patch, rangeLibrary ) {
+		var self = this;
+
+		self._iterateTrees( patch, rangeLibrary, function( node, key, rangeProp ) {
+			var prop = node[ key ],
+				isLeaf = ( prop && prop.range && prop.range.length && prop.range.length === 2 && prop.value !== undefined &&
+					rangeProp && rangeProp.length && rangeProp.length === 2 );
+
+			if ( isLeaf ) {
+				node[ key ] = settingsConvertor.transposeParam( prop, rangeProp );
+			}
+
+			return isLeaf;
+		} );
+	},
+
+	_applyRange: function( patch, rangeLibrary ) {
+		var self = this;
+
+		self._iterateTrees( patch, rangeLibrary, function( node, key, rangeProp ) {
+			var prop = node[ key ],
+				isLeaf = ( rangeProp && rangeProp instanceof Array && rangeProp.length === 2 );
+
+			if ( isLeaf ) {
+				// if there is no such prop on the patch (introduced in newer engine version)
+				if ( prop === undefined ) {
+					// set to the range center
+					prop = settingsConvertor.getRangeCenter( rangeProp );
+				}
+				node[ key ] = { value: prop, range: rangeProp };
+			}
+
+			return isLeaf;
+		} );
+	},
+
+	_iterateTrees: function( node, matchingNode, isLeafLambda ) {
+		var self = this;
+
+		Object.keys( node ).forEach( function( key ) {
+			var prop = node[ key ],
+				matchingProp = matchingNode && matchingNode[ key ],
+				isObject = ( "object" === typeof( prop ) );
+
+			if ( !isLeafLambda( node, key, matchingProp ) && isObject ) {
+				self._iterateTrees( prop, matchingProp, isLeafLambda );
+			}
+		} );
+	}
+
+};
+
+module.exports = patchLoader;

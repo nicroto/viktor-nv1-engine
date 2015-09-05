@@ -1,6 +1,7 @@
 'use strict';
 
 var CONST = require( "./engine/const" ),
+	patchLoader = require( "./engine/patch-loader" ),
 	MIDIController = require( "./engine/midi" ),
 	Tuna = require( "./non-npm/tuna/tuna.js" );
 
@@ -28,6 +29,7 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.instruments = [];
 	self.selectedInstrument = null;
 	self.externalMidiMessageHandlers = [];
+	self.version = CONST.ENGINE_VERSION;
 	self.settings = {
 		pitch: null,
 		modulation: null,
@@ -83,6 +85,8 @@ DAW.prototype = {
 		var self = this,
 			instruments = self.instruments;
 
+		patch = patchLoader.load( patch );
+
 		if ( patch ) {
 			// first apply instrument patches (pitch, modulation etc. should override)
 			instruments.forEach( function( instrument ) {
@@ -112,10 +116,15 @@ DAW.prototype = {
 			instrumentPatches[ instrument.name ] = instrument.getPatch();
 		} );
 
-		return JSON.parse( JSON.stringify( {
+		var patch = JSON.parse( JSON.stringify( {
+			version: self.version,
 			daw: self.settings,
 			instruments: instrumentPatches
 		} ) );
+
+		patchLoader.prepareForSerialization( patch );
+
+		return patch;
 	},
 
 	onPatchChange: function( handler ) {

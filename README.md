@@ -889,3 +889,10 @@ Overrides the list of custom patches with another one.
  * customPatches: `Object`, check the defaults passed on instantiation for reference on the structure of the object.
 
 **Returns:** `undefined`.
+
+## Release History
+
+ * 1.1
+ 	 * Add: backward compatibility for patches exported from older versions of the engine;
+ 	 * Improve: patch size (cut down to 43% of previous size);
+ 	 * AddPatch: Bass Razr Lead.
