@@ -28,6 +28,15 @@ module.exports = {
 	FINE_DETUNE_HALF_SPECTRE: 8,
 	RANGE_DEFAULT_BASE: 3,
 
+	DEFAULT_VOICE_COUNT: 10,
+
+	DEFAULT_POLYPHONY_SETTINGS: {
+		voiceCount: {
+			value: 10,
+			range: [ 1, 10 ]
+		}
+	},
+
 	DEFAULT_PITCH_SETTINGS: {
 		bend: {
 			value: 0,
