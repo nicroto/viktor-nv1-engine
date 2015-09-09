@@ -26,6 +26,7 @@ function Instrument( audioContext, config ) {
 	masterVolume.gain.value = 1.0;
 
 	self.audioContext = audioContext;
+	self.monosynthVoice = voices[ 0 ];
 	self.voices = voices;
 	self.voicesAvailable = voicesAvailable;
 	self.voicesInUse = voicesInUse;
@@ -99,6 +100,7 @@ Instrument.prototype = {
 
 	onNoteOn: function( noteFrequency, velocity ) {
 		var self = this,
+			monosynthVoice = self.monosynthVoice,
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
 			frequencyVoiceMap = self.frequencyVoiceMap;
@@ -110,20 +112,20 @@ Instrument.prototype = {
 
 		var availableVoice = null;
 
-		if ( voicesAvailable.length ) {
-			availableVoice = voicesAvailable.splice( 0, 1 )[ 0 ];
+		if ( self.settings.polyphony.voiceCount.value === 1 ) {
+			// monosynth
+			availableVoice = monosynthVoice;
 		} else {
-			availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
+			if ( voicesAvailable.length ) {
+				availableVoice = voicesAvailable.splice( 0, 1 )[ 0 ];
+			} else {
+				availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
+			}
 		}
 
-		if ( self.settings.polyphony.voiceCount === 1 ) {
-			// monosynth
-			// TODO
-		} else {
-			voicesInUse.push( availableVoice );
-			availableVoice.onNoteOn( noteFrequency, velocity );
-			frequencyVoiceMap[ noteFrequency ] = availableVoice;
-		}
+		voicesInUse.push( availableVoice );
+		availableVoice.onNoteOn( noteFrequency, velocity );
+		frequencyVoiceMap[ noteFrequency ] = availableVoice;
 	},
 
 	onNoteOff: function( noteFrequency, velocity ) {
@@ -143,14 +145,9 @@ Instrument.prototype = {
 			voicesInUse.splice( usedVoiceIndex, 1 );
 		}
 
-		if ( self.settings.polyphony.voiceCount === 1 ) {
-			// monosynth
-			// TODO
-		} else {
-			voicesAvailable.push( usedVoice );
-			usedVoice.onNoteOff( noteFrequency, velocity );
-			delete frequencyVoiceMap[ noteFrequency ];
-		}
+		voicesAvailable.push( usedVoice );
+		usedVoice.onNoteOff( noteFrequency, velocity );
+		delete frequencyVoiceMap[ noteFrequency ];
 	},
 
 	_defineProps: function() {
