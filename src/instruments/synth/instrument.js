@@ -121,9 +121,10 @@ Instrument.prototype = {
 			} else {
 				availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
 			}
+
+			voicesInUse.push( availableVoice );
 		}
 
-		voicesInUse.push( availableVoice );
 		availableVoice.onNoteOn( noteFrequency, velocity );
 		frequencyVoiceMap[ noteFrequency ] = availableVoice;
 	},
@@ -143,9 +144,9 @@ Instrument.prototype = {
 
 		if ( usedVoiceIndex !== -1 ) {
 			voicesInUse.splice( usedVoiceIndex, 1 );
+			voicesAvailable.push( usedVoice );
 		}
 
-		voicesAvailable.push( usedVoice );
 		usedVoice.onNoteOff( noteFrequency, velocity );
 		delete frequencyVoiceMap[ noteFrequency ];
 	},
