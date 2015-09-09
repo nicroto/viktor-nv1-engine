@@ -228,6 +228,104 @@ module.exports = {
 			}
 		}
 	},
+	"Electric Piano": {
+		"version": 3,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 450,
+				"feedback": 0.387,
+				"dry": 0.66,
+				"wet": 0
+			},
+			"reverb": {
+				"level": 0.1
+			},
+			"masterVolume": {
+				"level": 0.84
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 10
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 1,
+						"fineDetune": 0,
+						"waveform": 0
+					},
+					"osc2": {
+						"range": 2,
+						"fineDetune": 0,
+						"waveform": 5
+					},
+					"osc3": {
+						"range": -1,
+						"fineDetune": 0,
+						"waveform": 0
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.4
+					},
+					"volume2": {
+						"enabled": 0,
+						"level": 0.25
+					},
+					"volume3": {
+						"enabled": 0,
+						"level": 0.4
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.03,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 0.53,
+						"release": 0.02
+					},
+					"filter": {
+						"attack": 0.12,
+						"decay": 0.12,
+						"sustain": 0.01099,
+						"release": 0.92
+					}
+				},
+				"filter": {
+					"cutoff": 8000,
+					"emphasis": 0.4,
+					"envAmount": 0
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 3,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
+				}
+			}
+		}
+	},
 	"Sine Bass": {
 		"daw": {
 			"pitch": {
@@ -450,6 +548,104 @@ module.exports = {
 						"value": 0,
 						"range": [-200, 200]
 					}
+				}
+			}
+		}
+	},
+	"8-bit Shogun": {
+		"version": 3,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 450,
+				"feedback": 0.387,
+				"dry": 0.66,
+				"wet": 0.28
+			},
+			"reverb": {
+				"level": 0.1
+			},
+			"masterVolume": {
+				"level": 0.84
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 10
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 1,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": 2,
+						"fineDetune": -5,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": -1,
+						"fineDetune": 0,
+						"waveform": 0
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.4
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.25
+					},
+					"volume3": {
+						"enabled": 0,
+						"level": 0.4
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.03,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 0.53,
+						"release": 0.02
+					},
+					"filter": {
+						"attack": 0.12,
+						"decay": 0.12,
+						"sustain": 0.01099,
+						"release": 0.92
+					}
+				},
+				"filter": {
+					"cutoff": 8000,
+					"emphasis": 0.4,
+					"envAmount": 0
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 3,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
 				}
 			}
 		}
@@ -680,6 +876,104 @@ module.exports = {
 			}
 		}
 	},
+	"Electric Clavessine": {
+		"version": 3,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 450,
+				"feedback": 0.387,
+				"dry": 0.66,
+				"wet": 0
+			},
+			"reverb": {
+				"level": 0.1
+			},
+			"masterVolume": {
+				"level": 0.84
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 10
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 0,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": 1,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": -1,
+						"fineDetune": 0,
+						"waveform": 0
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.4
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.25
+					},
+					"volume3": {
+						"enabled": 0,
+						"level": 0.4
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.03,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 0.53,
+						"release": 0.02
+					},
+					"filter": {
+						"attack": 0.12,
+						"decay": 0.12,
+						"sustain": 0.01099,
+						"release": 0.92
+					}
+				},
+				"filter": {
+					"cutoff": 8000,
+					"emphasis": 0.4,
+					"envAmount": 0
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 3,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
+				}
+			}
+		}
+	},
 	"Moog Triangle Bass": {
 		"daw": {
 			"pitch": {
@@ -902,6 +1196,202 @@ module.exports = {
 						"value": 0,
 						"range": [-200, 200]
 					}
+				}
+			}
+		}
+	},
+	"Organ Thingie": {
+		"version": 3,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 450,
+				"feedback": 0.387,
+				"dry": 0.66,
+				"wet": 0
+			},
+			"reverb": {
+				"level": 0.1
+			},
+			"masterVolume": {
+				"level": 0.84
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 10
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 0,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": 1,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": -1,
+						"fineDetune": 0,
+						"waveform": 0
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.4
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.25
+					},
+					"volume3": {
+						"enabled": 1,
+						"level": 0.4
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.03,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 0.53,
+						"release": 0
+					},
+					"filter": {
+						"attack": 0.12,
+						"decay": 0.12,
+						"sustain": 0.01099,
+						"release": 0.92
+					}
+				},
+				"filter": {
+					"cutoff": 8000,
+					"emphasis": 0.4,
+					"envAmount": 0
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 3,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
+				}
+			}
+		}
+	},
+	"Accordion": {
+		"version": 3,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 280,
+				"feedback": 0.5940000000000001,
+				"dry": 0.66,
+				"wet": 0
+			},
+			"reverb": {
+				"level": 0
+			},
+			"masterVolume": {
+				"level": 0.84
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 10
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 0,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": 2,
+						"fineDetune": -5,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": -2,
+						"fineDetune": 0,
+						"waveform": 1
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.4
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.2
+					},
+					"volume3": {
+						"enabled": 1,
+						"level": 0.4
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.49,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0.28,
+						"decay": 1.04096,
+						"sustain": 0.39,
+						"release": 0
+					},
+					"filter": {
+						"attack": 0.02,
+						"decay": 1.8,
+						"sustain": 0.05095,
+						"release": 0.92
+					}
+				},
+				"filter": {
+					"cutoff": 8000,
+					"emphasis": 5.600000000000001,
+					"envAmount": 1
+				},
+				"lfo": {
+					"waveform": 3,
+					"rate": 6,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
 				}
 			}
 		}

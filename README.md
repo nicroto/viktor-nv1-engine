@@ -144,229 +144,101 @@ DAW is your entry point to the engine:
  * patch: `Object` serializable to JSON, representing the settings of the engine:
 
 ```javascript
-// the "Meet her at the Love Parade" patch
+// the "Electric Piano" patch
 {
+	"version": 3,
 	"daw": {
 		"pitch": {
-			"bend": {
-				"value": 0,
-				"range": [-200, 200]
-			}
+			"bend": 0
 		},
 		"modulation": {
-			"rate": {
-				"value": 0,
-				"range": [0, 15]
-			}
+			"rate": 0
 		},
 		"delay": {
-			"time": {
-				"value": 450,
-				"range": [0, 1000]
-			},
-			"feedback": {
-				"value": 0.54,
-				"range": [0, 0.9]
-			},
-			"dry": {
-				"value": 1,
-				"range": [0, 1]
-			},
-			"wet": {
-				"value": 0.31,
-				"range": [0, 1]
-			}
+			"time": 450,
+			"feedback": 0.387,
+			"dry": 0.66,
+			"wet": 0
 		},
 		"reverb": {
-			"level": {
-				"value": 0,
-				"range": [0, 1]
-			}
+			"level": 0.1
 		},
 		"masterVolume": {
-			"level": {
-				"value": 0.56,
-				"range": [0, 1]
-			}
+			"level": 0.84
 		}
 	},
 	"instruments": {
 		"synth": {
+			"polyphony": {
+				"voiceCount": 10
+			},
 			"modulation": {
-				"waveform": {
-					"value": 0,
-					"range": [0, 5]
-				},
-				"portamento": {
-					"value": 0.003333333333333333,
-					"range": [0, 0.16666666666666666]
-				},
-				"rate": {
-					"value": 0,
-					"range": [0, 15]
-				}
+				"waveform": 0,
+				"portamento": 0,
+				"rate": 0
 			},
 			"oscillator": {
 				"osc1": {
-					"range": {
-						"value": 0,
-						"range": [-4, 2]
-					},
-					"fineDetune": {
-						"value": 0,
-						"range": [-8, 8]
-					},
-					"waveform": {
-						"value": 2,
-						"range": [0, 5]
-					}
+					"range": 1,
+					"fineDetune": 0,
+					"waveform": 0
 				},
 				"osc2": {
-					"range": {
-						"value": 0,
-						"range": [-4, 2]
-					},
-					"fineDetune": {
-						"value": 3,
-						"range": [-8, 8]
-					},
-					"waveform": {
-						"value": 2,
-						"range": [0, 5]
-					}
+					"range": 2,
+					"fineDetune": 0,
+					"waveform": 5
 				},
 				"osc3": {
-					"range": {
-						"value": 0,
-						"range": [-4, 2]
-					},
-					"fineDetune": {
-						"value": -4,
-						"range": [-8, 8]
-					},
-					"waveform": {
-						"value": 2,
-						"range": [0, 5]
-					}
+					"range": -1,
+					"fineDetune": 0,
+					"waveform": 0
 				}
 			},
 			"mixer": {
 				"volume1": {
-					"enabled": {
-						"value": 1,
-						"range": [0, 1]
-					},
-					"level": {
-						"value": 0.69,
-						"range": [0, 1]
-					}
+					"enabled": 1,
+					"level": 0.4
 				},
 				"volume2": {
-					"enabled": {
-						"value": 1,
-						"range": [0, 1]
-					},
-					"level": {
-						"value": 0.97,
-						"range": [0, 1]
-					}
+					"enabled": 0,
+					"level": 0.25
 				},
 				"volume3": {
-					"enabled": {
-						"value": 0,
-						"range": [0, 1]
-					},
-					"level": {
-						"value": 0.09,
-						"range": [0, 1]
-					}
+					"enabled": 0,
+					"level": 0.4
 				}
 			},
 			"noise": {
-				"enabled": {
-					"value": 0,
-					"range": [0, 1]
-				},
-				"type": {
-					"value": 0,
-					"range": [0, 2]
-				},
-				"level": {
-					"value": 0.2,
-					"range": [0, 1]
-				}
+				"enabled": 0,
+				"level": 0.03,
+				"type": 0
 			},
 			"envelopes": {
 				"primary": {
-					"attack": {
-						"value": 0,
-						"range": [0, 2]
-					},
-					"decay": {
-						"value": 0.002,
-						"range": [0.002, 2]
-					},
-					"sustain": {
-						"value": 1,
-						"range": [0, 1]
-					},
-					"release": {
-						"value": 0,
-						"range": [0, 2]
-					}
+					"attack": 0,
+					"decay": 0.002,
+					"sustain": 0.53,
+					"release": 0.02
 				},
 				"filter": {
-					"attack": {
-						"value": 0.5,
-						"range": [0, 2]
-					},
-					"decay": {
-						"value": 0.5,
-						"range": [0, 2]
-					},
-					"sustain": {
-						"value": 0.5,
-						"range": [0.001, 1]
-					},
-					"release": {
-						"value": 0.1,
-						"range": [0, 2]
-					}
+					"attack": 0.12,
+					"decay": 0.12,
+					"sustain": 0.01099,
+					"release": 0.92
 				}
 			},
 			"filter": {
-				"cutoff": {
-					"value": 4800,
-					"range": [0, 8000]
-				},
-				"emphasis": {
-					"value": 2,
-					"range": [0.4, 40]
-				},
-				"envAmount": {
-					"value": 0,
-					"range": [0, 1]
-				}
+				"cutoff": 8000,
+				"emphasis": 0.4,
+				"envAmount": 0
 			},
 			"lfo": {
-				"waveform": {
-					"value": 0,
-					"range": [0, 5]
-				},
-				"rate": {
-					"value": 1,
-					"range": [1, 25]
-				},
-				"amount": {
-					"value": 0,
-					"range": [0, 1]
-				}
+				"waveform": 0,
+				"rate": 3,
+				"amount": 0
 			},
 			"pitch": {
-				"bend": {
-					"value": 0,
-					"range": [-200, 200]
-				}
+				"bend": 0
 			}
 		}
 	}
@@ -611,6 +483,20 @@ daw.init( function() {
 Check the actual source, if you want to extend the engine and add another instrument.
 
 I will list only props that you would access, if you just the engine as it is. There are no methods, which you should be calling, as of this moment.
+
+#### `synth.polyphonySettings` property
+
+`Object` with structure:
+
+```javascript
+{
+	voiceCount: NV1Param
+}
+```
+
+**You should only set the full object not individual properties!**
+
+Check the daw.delaySettings for reference on getting and setting an NV-1 property property.
 
 #### `synth.modulationSettings` property
 
@@ -912,6 +798,15 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.2
+ 	 * Add: Polyphony;
+ 	 * Add: Patch ver3;
+ 	 * Add: Patch: Electric Piano;
+ 	 * Add: Patch: 8-bit Shogun;
+ 	 * Add: Patch: Electric Clavessine;
+ 	 * Add: Patch: Electric Clavessine 2;
+ 	 * Add: Patch: Organ Thingie;
+ 	 * Add: Patch: Accordion.
  * 1.1.2
  	 * Add: PatchLibrary: getPatch( patchName ).
  * 1.1.1
