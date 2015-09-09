@@ -4,6 +4,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	CONST = require( "./const" ),
 	ENGINE_VERSION_1 = 1,
 	ENGINE_VERSION_2 = 2,
+	ENGINE_VERSION_3 = 3,
 	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
 
 var patchLoader = {
@@ -21,6 +22,10 @@ var patchLoader = {
 
 			case ENGINE_VERSION_2:
 				alteredPatch = self._loadVersion2Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_3:
+				alteredPatch = self._loadVersion3Patch( alteredPatch );
 				break;
 
 			default:
@@ -57,12 +62,32 @@ var patchLoader = {
 	},
 
 	_loadVersion1Patch: function( patch ) {
-		return patch; // ... as it is
+		var self = this;
+
+		self._defaultPatchToMonosynth( patch );
+
+		return patch;
 	},
 
 	_loadVersion2Patch: function( patch ) {
 		var self = this,
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_2,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		self._defaultPatchToMonosynth( patch );
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._transposeRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_loadVersion3Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_3,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._applyRange( patch, rangeLibrary );
@@ -73,6 +98,17 @@ var patchLoader = {
 		}
 
 		return patch;
+	},
+
+	_defaultPatchToMonosynth: function( patch ) {
+		var latestRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		patch.instruments.synth.polyphony = {
+			voiceCount: {
+				value: 1,
+				range: latestRangeLibrary.instruments.synth.polyphony.voiceCount
+			}
+		};
 	},
 
 	_transposeRanges: function( patch, rangeLibrary ) {

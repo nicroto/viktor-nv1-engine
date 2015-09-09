@@ -20,12 +20,18 @@ describe( "patchLoader", function() {
 			loadedPatch.should.eql( data.expected.loadedVersion2Patch );
 		} );
 
+		it( "successfully loads v3 patch", function() {
+			var loadedPatch = patchLoader.load( data.cases.version3Patch );
+
+			loadedPatch.should.eql( data.expected.loadedVersion3Patch );
+		} );
+
 	} );
 
 	describe( "prepareForSerialization( patch )", function() {
 
 		it( "strips ranges", function() {
-			var loadedPatch = patchLoader.load( data.cases.version2Patch );
+			var loadedPatch = patchLoader.load( data.cases.version3Patch );
 
 			patchLoader.prepareForSerialization( loadedPatch );
 
