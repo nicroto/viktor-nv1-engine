@@ -11,28 +11,28 @@ function Instrument( audioContext, config ) {
 		voicesAvailable = [],
 		voicesInUse = [],
 		frequencyVoiceMap = {},
-		masterVolume = audioContext.createGain(),
+		outputNode = audioContext.createGain(),
 		voiceCount = config && config.voiceCount ? config.voiceCount : CONST.DEFAULT_VOICE_COUNT;
 
-	for ( var i = 0; i < voiceCount; i++ ) {
-		var voice = new Voice( audioContext );
-
-		voices.push( voice );
-		voicesAvailable.push( voice );
-
-		voice.outputNode.connect( masterVolume );
-	}
-
-	masterVolume.gain.value = 1.0;
+	outputNode.gain.value = 1.0;
 
 	self.audioContext = audioContext;
-	self.monosynthVoice = voices[ 0 ];
 	self.voices = voices;
 	self.voicesAvailable = voicesAvailable;
 	self.voicesInUse = voicesInUse;
 	self.frequencyVoiceMap = frequencyVoiceMap;
-	self.outputNode = masterVolume;
+	self.outputNode = outputNode;
 	self.activeNotes = [];
+	self.transientPropNames = [
+		"pitch",
+		"modulation",
+		"oscillator",
+		"mixer",
+		"noise",
+		"envelopes",
+		"filter",
+		"lfo"
+	];
 	self.settings = {
 
 		// own settings
@@ -52,8 +52,6 @@ function Instrument( audioContext, config ) {
 
 	self._defineProps();
 
-	self.polyphonySettings = CONST.DEFAULT_POLYPHONY_SETTINGS;
-
 	self.modulationSettings = CONST.DEFAULT_MOD_SETTINGS;
 	self.oscillatorSettings = CONST.DEFAULT_OSC_SETTINGS;
 	self.mixerSettings = CONST.DEFAULT_MIX_SETTINGS;
@@ -62,6 +60,9 @@ function Instrument( audioContext, config ) {
 	self.filterSettings = CONST.DEFAULT_FILTER_SETTINGS;
 	self.lfoSettings = CONST.DEFAULT_LFO_SETTINGS;
 	self.pitchSettings = CONST.DEFAULT_PITCH_SETTINGS;
+
+	// should be init last because it should set transient settings to voices
+	self.polyphonySettings = CONST.DEFAULT_POLYPHONY_SETTINGS;
 }
 
 Instrument.prototype = {
@@ -100,7 +101,7 @@ Instrument.prototype = {
 
 	onNoteOn: function( noteFrequency, velocity ) {
 		var self = this,
-			monosynthVoice = self.monosynthVoice,
+			monosynthVoice = self.voices[ 0 ],
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
 			frequencyVoiceMap = self.frequencyVoiceMap;
@@ -151,8 +152,60 @@ Instrument.prototype = {
 		delete frequencyVoiceMap[ noteFrequency ];
 	},
 
+	_createVoices: function( n ) {
+		var self = this,
+			audioContext = self.audioContext,
+			voices = self.voices,
+			voicesAvailable = self.voicesAvailable,
+			outputNode = self.outputNode,
+			transientPropNames = self.transientPropNames,
+			settingsLambda = function( setting ) {
+				var settingName = setting + "Settings";
+
+				voice[ settingName ] = self[ settingName ];
+			};
+
+		for ( var i = 0; i < n; i++ ) {
+			var voice = new Voice( audioContext );
+
+			voices.push( voice );
+			voicesAvailable.push( voice );
+
+			transientPropNames.forEach( settingsLambda );
+
+			voice.outputNode.connect( outputNode );
+		}
+	},
+
+	_dropVoices: function( n ) {
+		var self = this,
+			voices = self.voices,
+			voicesAvailable = self.voicesAvailable,
+			voicesInUse = self.voicesInUse;
+
+		for ( var i = 0; i < n; i++ ) {
+			var voice;
+			if ( voicesAvailable.length ) {
+				voice = voicesAvailable.splice( voicesAvailable.length - 1, 1 )[ 0 ];
+			} else if ( voicesInUse.length ) {
+				voice = voicesInUse.splice( voicesInUse.length - 1, 1 )[ 0 ];
+			} else {
+				// there is nothing to remove
+				break;
+			}
+
+			var indexInVoices = voices.indexOf( voice );
+			if ( indexInVoices !== -1 ) {
+				voices.splice( indexInVoices, 1 );
+			}
+
+			voice.outputNode.disconnect();
+		}
+	},
+
 	_defineProps: function() {
-		var self = this;
+		var self = this,
+			transientPropNames = self.transientPropNames;
 
 		Object.defineProperty( self, "polyphonySettings", {
 
@@ -163,9 +216,15 @@ Instrument.prototype = {
 			},
 
 			set: function( settings ) {
-				var self = this;
+				var self = this,
+					voices = self.voices,
+					countDiff = settings.voiceCount.value - voices.length;
 
-				// TODO
+				if ( countDiff > 0 ) {
+					self._createVoices( countDiff );
+				} else if ( countDiff < 0 ) {
+					self._dropVoices( countDiff * ( -1 ) );
+				}
 
 				self.settings.polyphony = JSON.parse( JSON.stringify( settings ) );
 			}
@@ -173,16 +232,7 @@ Instrument.prototype = {
 		} );
 
 		// define all transient properties to just pass to voices
-		[
-			"pitch",
-			"modulation",
-			"oscillator",
-			"mixer",
-			"noise",
-			"envelopes",
-			"filter",
-			"lfo"
-		].forEach( function( settingName ) {
+		transientPropNames.forEach( function( settingName ) {
 
 			( function( settingName ) {
 
