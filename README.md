@@ -798,6 +798,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.2.2
+ 	 * Add: Velocity Sensitivity;
  * 1.2.1
  	 * Add: Polyphony: voice scaling (creating and droping voices);
  * 1.2

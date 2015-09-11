@@ -21,11 +21,11 @@ function Envelope( audioContext, propName, upperBound ) {
 
 Envelope.prototype = {
 
-	start: function( time ) {
+	start: function( upperBoundMultiplier, time ) {
 		var self = this,
 			audioContext = self.audioContext,
 			propName = self.propName,
-			upperBound = self.upperBound,
+			upperBound = self.upperBound * upperBoundMultiplier,
 			node = self.node,
 			attack = self.attack,
 			decay = self.decay,

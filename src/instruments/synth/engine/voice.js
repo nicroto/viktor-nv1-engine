@@ -83,15 +83,6 @@ function Voice( audioContext ) {
 	};
 
 	self._defineProps();
-
-	// self.modulationSettings = CONST.DEFAULT_MOD_SETTINGS;
-	// self.oscillatorSettings = CONST.DEFAULT_OSC_SETTINGS;
-	// self.mixerSettings = CONST.DEFAULT_MIX_SETTINGS;
-	// self.noiseSettings = CONST.DEFAULT_NOISE_SETTINGS;
-	// self.envelopesSettings = CONST.DEFAULT_ENVELOPES_SETTINGS;
-	// self.filterSettings = CONST.DEFAULT_FILTER_SETTINGS;
-	// self.lfoSettings = CONST.DEFAULT_LFO_SETTINGS;
-	// self.pitchSettings = CONST.DEFAULT_PITCH_SETTINGS;
 }
 
 Voice.prototype = {
@@ -135,7 +126,12 @@ Voice.prototype = {
 			portamento = self.settings.modulation.portamento.value,
 			notesCount = activeNotes.length,
 			hasANoteDown = notesCount > 0,
-			position = activeNotes.indexOf( noteFrequency );
+			position = activeNotes.indexOf( noteFrequency ),
+			attackPeak = settingsConvertor.transposeValue(
+				velocity,
+				[ 0, 127 ],
+				[ 0, 1 ]
+			);
 
 		if ( !hasANoteDown ) {
 			self._pitchDetuneOscillatorBank( oscillatorBank, self.pitchSettings.bend.value );
@@ -157,8 +153,8 @@ Voice.prototype = {
 			portamento: portamento
 		};
 
-		gainEnvelope.start();
-		filterEnvelope.start();
+		gainEnvelope.start( attackPeak );
+		filterEnvelope.start( attackPeak );
 	},
 
 	onNoteOff: function( noteFrequency, velocity ) {
