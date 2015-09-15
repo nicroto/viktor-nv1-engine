@@ -2,7 +2,7 @@
 
 module.exports = {
 
-	ENGINE_VERSION: 3,
+	ENGINE_VERSION: 4,
 
 	RANGE_LIBRARY: {
 		// ENGINE_VERSION_1
@@ -127,6 +127,105 @@ module.exports = {
 				"synth": {
 					"polyphony": {
 						"voiceCount": [1, 10]
+					},
+					"modulation": {
+						"waveform": [0, 5],
+						"portamento": [0, 0.16666666666666666],
+						"rate": [0, 15]
+					},
+					"oscillator": {
+						"osc1": {
+							"range": [-4, 2],
+							"fineDetune": [-8, 8],
+							"waveform": [0, 5]
+						},
+						"osc2": {
+							"range": [-4, 2],
+							"fineDetune": [-8, 8],
+							"waveform": [0, 5]
+						},
+						"osc3": {
+							"range": [-4, 2],
+							"fineDetune": [-8, 8],
+							"waveform": [0, 5]
+						}
+					},
+					"mixer": {
+						"volume1": {
+							"enabled": [0, 1],
+							"level": [0, 1]
+						},
+						"volume2": {
+							"enabled": [0, 1],
+							"level": [0, 1]
+						},
+						"volume3": {
+							"enabled": [0, 1],
+							"level": [0, 1]
+						}
+					},
+					"noise": {
+						"enabled": [0, 1],
+						"level": [0, 1],
+						"type": [0, 2]
+					},
+					"envelopes": {
+						"primary": {
+							"attack": [0, 2],
+							"decay": [0.002, 2],
+							"sustain": [0, 1],
+							"release": [0, 2]
+						},
+						"filter": {
+							"attack": [0, 2],
+							"decay": [0, 2],
+							"sustain": [0.001, 1],
+							"release": [0, 2]
+						}
+					},
+					"filter": {
+						"cutoff": [0, 8000],
+						"emphasis": [0.4, 40],
+						"envAmount": [0, 1]
+					},
+					"lfo": {
+						"waveform": [0, 5],
+						"rate": [1, 25],
+						"amount": [0, 1]
+					},
+					"pitch": {
+						"bend": [-200, 200]
+					}
+				}
+			}
+		},
+
+		ENGINE_VERSION_4: {
+			"daw": {
+				"pitch": {
+					"bend": [-200, 200]
+				},
+				"modulation": {
+					"rate": [0, 15]
+				},
+				"delay": {
+					"time": [0, 1000],
+					"feedback": [0, 0.9],
+					"dry": [0, 1],
+					"wet": [0, 1]
+				},
+				"reverb": {
+					"level": [0, 1]
+				},
+				"masterVolume": {
+					"level": [0, 1]
+				}
+			},
+			"instruments": {
+				"synth": {
+					"polyphony": {
+						"voiceCount": [1, 10],
+						"sustain": [0, 1]
 					},
 					"modulation": {
 						"waveform": [0, 5],

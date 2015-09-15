@@ -171,6 +171,7 @@ DAW is your entry point to the engine:
 		"synth": {
 			"polyphony": {
 				"voiceCount": 10
+				"sustain": 0
 			},
 			"modulation": {
 				"waveform": 0,
@@ -490,7 +491,8 @@ I will list only props that you would access, if you just the engine as it is. T
 
 ```javascript
 {
-	voiceCount: NV1Param
+	voiceCount: NV1Param,
+	sustain: NV1Param
 }
 ```
 
@@ -798,6 +800,9 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.3
+ 	 * Add: Sustain pedal support;
+ 	 * Add: Patch: Underwater Bass Lead.
  * 1.2.2
  	 * Add: Velocity Sensitivity;
  * 1.2.1

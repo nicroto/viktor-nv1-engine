@@ -34,6 +34,10 @@ module.exports = {
 		voiceCount: {
 			value: 10,
 			range: [ 1, 10 ]
+		},
+		sustain: {
+			value: 0,
+			range: [ 0, 1 ]
 		}
 	},
 

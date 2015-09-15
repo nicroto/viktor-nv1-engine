@@ -10,6 +10,7 @@ function Instrument( audioContext, config ) {
 		voices = [],
 		voicesAvailable = [],
 		voicesInUse = [],
+		sustainedFrequencyVoiceMap = {},
 		frequencyVoiceMap = {},
 		outputNode = audioContext.createGain(),
 		voiceCount = config && config.voiceCount ? config.voiceCount : CONST.DEFAULT_VOICE_COUNT;
@@ -21,6 +22,7 @@ function Instrument( audioContext, config ) {
 	self.voicesAvailable = voicesAvailable;
 	self.voicesInUse = voicesInUse;
 	self.frequencyVoiceMap = frequencyVoiceMap;
+	self.sustainedFrequencyVoiceMap = sustainedFrequencyVoiceMap;
 	self.outputNode = outputNode;
 	self.activeNotes = [];
 	self.transientPropNames = [
@@ -92,6 +94,12 @@ Instrument.prototype = {
 			var methodName = ( parsed.isNoteOn ) ? "onNoteOn" : "onNoteOff";
 
 			self[ methodName ]( parsed.noteFrequency, parsed.velocity );
+		} else if ( eventType === "sustain" ) {
+			var polyphonySettings = self.polyphonySettings;
+
+			polyphonySettings.sustain = parsed.sustain;
+
+			self.polyphonySettings = polyphonySettings;
 		} else {
 			allVoices.forEach( function( voice ) {
 				voice.onMidiMessage( eventType, parsed, rawEvent );
@@ -101,10 +109,11 @@ Instrument.prototype = {
 
 	onNoteOn: function( noteFrequency, velocity ) {
 		var self = this,
-			monosynthVoice = self.voices[ 0 ],
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
-			frequencyVoiceMap = self.frequencyVoiceMap;
+			frequencyVoiceMap = self.frequencyVoiceMap,
+			sustainedFrequencyVoiceMap = self.sustainedFrequencyVoiceMap,
+			isSustainOn = self.settings.polyphony.sustain.value === 1;
 
 		if ( frequencyVoiceMap[ noteFrequency ] ) {
 			// if the voice is already ON, no need to restart it
@@ -112,22 +121,25 @@ Instrument.prototype = {
 		}
 
 		var availableVoice = null;
+		if ( isSustainOn && sustainedFrequencyVoiceMap[ noteFrequency ] ) {
+			availableVoice = sustainedFrequencyVoiceMap[ noteFrequency ];
 
-		if ( self.settings.polyphony.voiceCount.value === 1 ) {
-			// monosynth
-			availableVoice = monosynthVoice;
+			var indexInVoicesAvailable = voicesAvailable.indexOf( availableVoice );
+
+			voicesAvailable.splice( indexInVoicesAvailable, 1 );
+		} else if ( voicesAvailable.length ) {
+			availableVoice = voicesAvailable.splice( 0, 1 )[ 0 ];
 		} else {
-			if ( voicesAvailable.length ) {
-				availableVoice = voicesAvailable.splice( 0, 1 )[ 0 ];
-			} else {
-				availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
-			}
-
-			voicesInUse.push( availableVoice );
+			availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
 		}
+
+		voicesInUse.push( availableVoice );
 
 		availableVoice.onNoteOn( noteFrequency, velocity );
 		frequencyVoiceMap[ noteFrequency ] = availableVoice;
+		if ( isSustainOn ) {
+			sustainedFrequencyVoiceMap[ noteFrequency ] = availableVoice;
+		}
 	},
 
 	onNoteOff: function( noteFrequency, velocity ) {
@@ -143,13 +155,13 @@ Instrument.prototype = {
 			return;
 		}
 
-		if ( usedVoiceIndex !== -1 ) {
+		usedVoice.onNoteOff( noteFrequency, velocity );
+		delete frequencyVoiceMap[ noteFrequency ];
+
+		if ( !usedVoice.pressedNotes.length ) {
 			voicesInUse.splice( usedVoiceIndex, 1 );
 			voicesAvailable.push( usedVoice );
 		}
-
-		usedVoice.onNoteOff( noteFrequency, velocity );
-		delete frequencyVoiceMap[ noteFrequency ];
 	},
 
 	_createVoices: function( n ) {
@@ -218,13 +230,21 @@ Instrument.prototype = {
 			set: function( settings ) {
 				var self = this,
 					voices = self.voices,
-					countDiff = settings.voiceCount.value - voices.length;
+					countDiff = settings.voiceCount.value - voices.length,
+					isSustainOn = settings.sustain.value === 1;
 
+				// voiceCount
 				if ( countDiff > 0 ) {
 					self._createVoices( countDiff );
 				} else if ( countDiff < 0 ) {
 					self._dropVoices( countDiff * ( -1 ) );
 				}
+
+				// sustain
+				self.sustainedFrequencyVoiceMap = {};
+				voices.forEach( function( voice ) {
+					voice.setSustain( isSustainOn );
+				} );
 
 				self.settings.polyphony = JSON.parse( JSON.stringify( settings ) );
 			}

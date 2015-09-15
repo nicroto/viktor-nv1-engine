@@ -5,6 +5,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	ENGINE_VERSION_1 = 1,
 	ENGINE_VERSION_2 = 2,
 	ENGINE_VERSION_3 = 3,
+	ENGINE_VERSION_4 = 4,
 	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
 
 var patchLoader = {
@@ -26,6 +27,10 @@ var patchLoader = {
 
 			case ENGINE_VERSION_3:
 				alteredPatch = self._loadVersion3Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_4:
+				alteredPatch = self._loadVersion4Patch( alteredPatch );
 				break;
 
 			default:
@@ -90,6 +95,26 @@ var patchLoader = {
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_3,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
+		patch.instruments.synth.polyphony.sustain = {
+			value: 0,
+			range: newRangeLibrary.instruments.synth.polyphony.sustain
+		};
+
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._transposeRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_loadVersion4Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_4,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -107,6 +132,10 @@ var patchLoader = {
 			voiceCount: {
 				value: 1,
 				range: latestRangeLibrary.instruments.synth.polyphony.voiceCount
+			},
+			sustain: {
+				value: 0,
+				range: latestRangeLibrary.instruments.synth.polyphony.sustain
 			}
 		};
 	},

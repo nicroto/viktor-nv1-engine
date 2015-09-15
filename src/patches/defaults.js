@@ -2,6 +2,105 @@
 
 module.exports = {
 
+	"Underwater Bass Lead": {
+		"version": 4,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 570,
+				"feedback": 0.45,
+				"dry": 0.84,
+				"wet": 0.5875
+			},
+			"reverb": {
+				"level": 0.36
+			},
+			"masterVolume": {
+				"level": 1
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 1,
+					"sustain": 1
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0.006666666666666666,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": -1,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": -2,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": -3,
+						"fineDetune": 0,
+						"waveform": 3
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 0,
+						"level": 0.2
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.16
+					},
+					"volume3": {
+						"enabled": 1,
+						"level": 0.08
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"level": 0.17,
+					"type": 0
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 1,
+						"release": 0.02
+					},
+					"filter": {
+						"attack": 1.3,
+						"decay": 1.44,
+						"sustain": 0.001,
+						"release": 0.02
+					}
+				},
+				"filter": {
+					"cutoff": 2640,
+					"emphasis": 8.8,
+					"envAmount": 1
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 6,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
+				}
+			}
+		}
+	},
 	"Bass Razr Lead": {
 		"daw": {
 			"pitch": {

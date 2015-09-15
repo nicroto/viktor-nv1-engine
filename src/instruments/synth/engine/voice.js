@@ -68,7 +68,11 @@ function Voice( audioContext ) {
 	self.lfoFilterMix = lfoFilterMix;
 	self.filterEnvelope = filterEnvelope;
 	self.outputNode = masterVolume;
-	self.activeNotes = [];
+	self.pressedNotes = [];
+
+	// non-setting properties
+	self._isSustainOn = false;
+
 	self.settings = {
 
 		modulation: null,
@@ -86,8 +90,6 @@ function Voice( audioContext ) {
 }
 
 Voice.prototype = {
-
-	name: "synth",
 
 	loadPatch: function( patch ) {
 		var self = this;
@@ -122,11 +124,11 @@ Voice.prototype = {
 			oscillatorBank = self.oscillatorBank,
 			gainEnvelope = self.gainEnvelope,
 			filterEnvelope = self.filterEnvelope,
-			activeNotes = self.activeNotes,
+			pressedNotes = self.pressedNotes,
 			portamento = self.settings.modulation.portamento.value,
-			notesCount = activeNotes.length,
-			hasANoteDown = notesCount > 0,
-			position = activeNotes.indexOf( noteFrequency ),
+			pressedNotesCount = pressedNotes.length,
+			hasANoteDown = pressedNotesCount > 0,
+			pressedPosition = pressedNotes.indexOf( noteFrequency ),
 			attackPeak = settingsConvertor.transposeValue(
 				velocity,
 				[ 0, 127 ],
@@ -135,18 +137,16 @@ Voice.prototype = {
 
 		if ( !hasANoteDown ) {
 			self._pitchDetuneOscillatorBank( oscillatorBank, self.pitchSettings.bend.value );
-		}
-
-		if ( notesCount && position === ( notesCount - 1 ) ) {
+		} else if ( pressedPosition === ( pressedNotesCount - 1 ) ) {
 			// no need to restart sound if the same note is somehow input again
 			return;
 		}
 
-		if ( position !== -1 ) {
-			activeNotes.splice( position, 1 );
+		if ( pressedPosition !== -1 ) {
+			pressedNotes.splice( pressedPosition, 1 );
 		}
 
-		activeNotes.push( noteFrequency );
+		pressedNotes.push( noteFrequency );
 
 		oscillatorBank.note = {
 			frequency: noteFrequency,
@@ -162,24 +162,40 @@ Voice.prototype = {
 			oscillatorBank = self.oscillatorBank,
 			gainEnvelope = self.gainEnvelope,
 			filterEnvelope = self.filterEnvelope,
-			activeNotes = self.activeNotes,
+			pressedNotes = self.pressedNotes,
 			portamento = self.settings.modulation.portamento.value,
-			position = activeNotes.indexOf( noteFrequency );
+			position = pressedNotes.indexOf( noteFrequency );
 
 		if ( position !== -1 ) {
-			activeNotes.splice( position, 1 );
+			pressedNotes.splice( position, 1 );
 		}
 
-		if ( activeNotes.length === 0 ) {
+		if ( pressedNotes.length === 0 && !self._isSustainOn ) {
 			gainEnvelope.end();
 			filterEnvelope.end();
-		} else {
-			noteFrequency = activeNotes[ activeNotes.length - 1 ];
+		} else if ( pressedNotes.length > 0 ) {
+			noteFrequency = pressedNotes[ pressedNotes.length - 1 ];
 
 			oscillatorBank.note = {
 				frequency: noteFrequency,
 				portamento: portamento
 			};
+		}
+	},
+
+	setSustain: function( isOn ) {
+		var self = this,
+			gainEnvelope = self.gainEnvelope,
+			filterEnvelope = self.filterEnvelope,
+			pressedNotes = self.pressedNotes;
+
+		self._isSustainOn = isOn;
+
+		if ( !isOn ) {
+			if ( !pressedNotes.length ) {
+				gainEnvelope.end();
+				filterEnvelope.end();
+			}
 		}
 	},
 
@@ -220,7 +236,7 @@ Voice.prototype = {
 				var self = this,
 					oscillatorBank = self.oscillatorBank,
 					oldSettings = self.settings.pitch || { bend: {} },
-					hasANoteDown = self.activeNotes.length > 0;
+					hasANoteDown = self.pressedNotes.length > 0;
 
 				if ( hasANoteDown && oldSettings.bend.value !== settings.bend.value ) {
 					self._pitchDetuneOscillatorBank( oscillatorBank, settings.bend.value );
