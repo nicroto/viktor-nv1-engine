@@ -1,6 +1,7 @@
 'use strict';
 
-var CONST = require( "./engine/const" ),
+var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
+	CONST = require( "./engine/const" ),
 	patchLoader = require( "./engine/patch-loader" ),
 	MIDIController = require( "./engine/midi" ),
 	Tuna = require( "./non-npm/tuna/tuna.js" );
@@ -153,6 +154,12 @@ DAW.prototype = {
 		var self = this,
 			selectedInstrument = self.selectedInstrument,
 			externalHandlers = self.externalMidiMessageHandlers;
+
+		if ( eventType === "volume" ) {
+			self.masterVolumeSettings = {
+				level: settingsConvertor.transposeParam( parsed.volume, [ 0, 1 ] )
+			};
+		}
 
 		selectedInstrument.onMidiMessage( eventType, parsed, rawEvent );
 

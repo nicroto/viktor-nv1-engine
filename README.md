@@ -801,7 +801,8 @@ Overrides the list of custom patches with another one.
 ## Release History
 
  * 1.3
- 	 * Add: Sustain pedal support;
+ 	 * Add: MIDI: Sustain pedal support;
+ 	 * Add: MIDI: Volume knob/slider support;
  	 * Add: Patch: Underwater Bass Lead.
  * 1.2.2
  	 * Add: Velocity Sensitivity;

@@ -81,8 +81,12 @@ MIDIController.prototype = {
 		var self = this,
 			parsed = self.parseEventData( event ),
 			type = parsed ?
-				( parsed.isSustain ? "sustain" :
-					( parsed.isPitchBend ? "pitchBend" : ( parsed.isModulationWheel ? "modulationWheel" : "notePress" ) )
+				( parsed.isVolume ? "volume" :
+					( parsed.isSustain ? "sustain" :
+						( parsed.isPitchBend ? "pitchBend" :
+							( parsed.isModulationWheel ? "modulationWheel" : "notePress" )
+						)
+					)
 				) : "other";
 
 		self.messageHandler(
@@ -110,11 +114,13 @@ MIDIController.prototype = {
 			isPitchBend = false,
 			isModulationWheel = false,
 			isSustain = false,
+			isVolume = false,
 			isNoteOn = false,
 			parsed = false,
 			pitchBend,
 			modulation,
-			sustain;
+			sustain,
+			volume;
 
 		// 10011111 & 11110000 = 10010000
 		var simpleFirstByte = firstByte & binary( "11110000" );
@@ -148,6 +154,13 @@ MIDIController.prototype = {
 					range: [ 0, 1 ]
 				};
 				parsed = true;
+			} else if ( secondByte === binary( "00000111" ) ) {
+				isVolume = true;
+				volume = {
+					value: thirdByte,
+					range: [ 0, 127 ]
+				};
+				parsed = true;
 			}
 		}
 
@@ -158,6 +171,8 @@ MIDIController.prototype = {
 			modulation: modulation,
 			isSustain: isSustain,
 			sustain: sustain,
+			isVolume: isVolume,
+			volume: volume,
 			isNoteOn: isNoteOn,
 			noteFrequency: noteFrequency( secondByte ),
 			velocity: thirdByte
