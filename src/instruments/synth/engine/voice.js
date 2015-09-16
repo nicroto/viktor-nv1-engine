@@ -183,6 +183,13 @@ Voice.prototype = {
 		}
 	},
 
+	getCurrentNote: function() {
+		var self = this,
+			pressedNotes = self.pressedNotes;
+
+		return pressedNotes[ pressedNotes.length - 1 ];
+	},
+
 	setSustain: function( isOn ) {
 		var self = this,
 			gainEnvelope = self.gainEnvelope,

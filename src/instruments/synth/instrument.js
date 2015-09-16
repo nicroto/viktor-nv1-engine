@@ -193,7 +193,9 @@ Instrument.prototype = {
 		var self = this,
 			voices = self.voices,
 			voicesAvailable = self.voicesAvailable,
-			voicesInUse = self.voicesInUse;
+			voicesInUse = self.voicesInUse,
+			frequencyVoiceMap = self.frequencyVoiceMap,
+			sustainedFrequencyVoiceMap = self.sustainedFrequencyVoiceMap;
 
 		for ( var i = 0; i < n; i++ ) {
 			var voice;
@@ -201,6 +203,11 @@ Instrument.prototype = {
 				voice = voicesAvailable.splice( voicesAvailable.length - 1, 1 )[ 0 ];
 			} else if ( voicesInUse.length ) {
 				voice = voicesInUse.splice( voicesInUse.length - 1, 1 )[ 0 ];
+
+				var currentNote = voice.getCurrentNote();
+
+				delete frequencyVoiceMap[ currentNote ];
+				delete sustainedFrequencyVoiceMap[ currentNote ];
 			} else {
 				// there is nothing to remove
 				break;
