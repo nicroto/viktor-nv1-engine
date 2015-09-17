@@ -69,6 +69,7 @@ function Voice( audioContext ) {
 	self.filterEnvelope = filterEnvelope;
 	self.outputNode = masterVolume;
 	self.pressedNotes = [];
+	self.sustainedNote = null;
 
 	// non-setting properties
 	self._isSustainOn = false;
@@ -155,6 +156,10 @@ Voice.prototype = {
 
 		gainEnvelope.start( attackPeak );
 		filterEnvelope.start( attackPeak );
+
+		if ( self._isSustainOn ) {
+			self.sustainedNote = noteFrequency;
+		}
 	},
 
 	onNoteOff: function( noteFrequency, velocity ) {
@@ -185,9 +190,10 @@ Voice.prototype = {
 
 	getCurrentNote: function() {
 		var self = this,
-			pressedNotes = self.pressedNotes;
+			pressedNotes = self.pressedNotes,
+			sustainedNote = self.sustainedNote;
 
-		return pressedNotes[ pressedNotes.length - 1 ];
+		return pressedNotes[ pressedNotes.length - 1 ] || sustainedNote;
 	},
 
 	setSustain: function( isOn ) {
@@ -198,11 +204,14 @@ Voice.prototype = {
 
 		self._isSustainOn = isOn;
 
-		if ( !isOn ) {
+		if ( isOn ) {
+			self.sustainedNote = self.getCurrentNote();
+		} else {
 			if ( !pressedNotes.length ) {
 				gainEnvelope.end();
 				filterEnvelope.end();
 			}
+			self.sustainedNote = null;
 		}
 	},
 

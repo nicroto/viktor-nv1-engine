@@ -124,13 +124,25 @@ Instrument.prototype = {
 		if ( isSustainOn && sustainedFrequencyVoiceMap[ noteFrequency ] ) {
 			availableVoice = sustainedFrequencyVoiceMap[ noteFrequency ];
 
-			var indexInVoicesAvailable = voicesAvailable.indexOf( availableVoice );
+			var indexInVoicesAvailable = voicesAvailable.indexOf( availableVoice ),
+				indexInVoicesInUse = voicesInUse.indexOf( availableVoice );
 
-			voicesAvailable.splice( indexInVoicesAvailable, 1 );
+			if ( indexInVoicesAvailable !== -1 ) {
+				voicesAvailable.splice( indexInVoicesAvailable, 1 );
+			} else {
+				voicesInUse.splice( indexInVoicesInUse, 1 );
+			}
+
 		} else if ( voicesAvailable.length ) {
 			availableVoice = voicesAvailable.splice( 0, 1 )[ 0 ];
 		} else {
 			availableVoice = voicesInUse.splice( 0, 1 )[ 0 ];
+		}
+
+		var availableVoiceCurrentNote = availableVoice.getCurrentNote();
+		if ( availableVoiceCurrentNote && isSustainOn && sustainedFrequencyVoiceMap[ availableVoiceCurrentNote ] ) {
+			// if stealing a sustained voice
+			delete sustainedFrequencyVoiceMap[ availableVoiceCurrentNote ];
 		}
 
 		voicesInUse.push( availableVoice );
@@ -147,6 +159,7 @@ Instrument.prototype = {
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
 			frequencyVoiceMap = self.frequencyVoiceMap,
+			sustainedFrequencyVoiceMap = self.sustainedFrequencyVoiceMap,
 			usedVoice = frequencyVoiceMap[ noteFrequency ],
 			usedVoiceIndex = voicesInUse.indexOf( usedVoice );
 
@@ -158,7 +171,9 @@ Instrument.prototype = {
 		usedVoice.onNoteOff( noteFrequency, velocity );
 		delete frequencyVoiceMap[ noteFrequency ];
 
-		if ( !usedVoice.pressedNotes.length ) {
+		if ( usedVoice.pressedNotes.length ) {
+			delete sustainedFrequencyVoiceMap[ noteFrequency ];
+		} else {
 			voicesInUse.splice( usedVoiceIndex, 1 );
 			voicesAvailable.push( usedVoice );
 		}
