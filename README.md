@@ -800,6 +800,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.3.1
+ 	 * FineTune: ModWheel.
  * 1.3
  	 * Add: MIDI: Sustain pedal support;
  	 * Add: MIDI: Volume knob/slider support;

@@ -43,7 +43,7 @@ function Voice( audioContext ) {
 
 	masterVolume.gain.value = 1.0;
 
-	var modulationLfo = new LFO( audioContext, oscillatorBank.oscillators, "frequency", {
+	var modulationLfo = new LFO( audioContext, oscillatorBank.oscillators, "detune", {
 		rate: 0,
 		defaultForm: CONST.LFO_DEFAULT_FORM,
 		frequencyRange: CONST.MODULATION_LFO_FREQUENCY_RANGE
@@ -226,7 +226,10 @@ Voice.prototype = {
 	onModulationWheelTurn: function( modulation ) {
 		var self = this,
 			oldSettings = self.modulationSettings,
-			newRate = settingsConvertor.transposeParam( modulation, [ 0, 15 ] );
+			newRate = modulation.value === 0 ?
+				modulation
+				:
+				settingsConvertor.transposeParam( modulation, [ 3, 9 ] );
 
 		if ( oldSettings.rate !== newRate ) {
 			self.modulationSettings = {
