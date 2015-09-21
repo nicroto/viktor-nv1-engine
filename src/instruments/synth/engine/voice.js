@@ -317,7 +317,7 @@ Voice.prototype = {
 						osc.octave = newOscSettings.range.value;
 					}
 					if ( !oldSettings || oldOscSettings.fineDetune.value !== newOscSettings.fineDetune.value ) {
-						osc.semitone = newOscSettings.fineDetune.value;
+						osc.cent = newOscSettings.fineDetune.value;
 					}
 					if ( !oldSettings || oldOscSettings.waveform.value !== newOscSettings.waveform.value ) {
 						var waveform = newOscSettings.waveform.value,
@@ -496,7 +496,7 @@ Voice.prototype = {
 
 	_pitchDetuneOscillatorBank: function( oscillatorBank, value ) {
 		oscillatorBank.forEach( function( oscillatorSettings ) {
-			oscillatorSettings.cent = value;
+			oscillatorSettings.pitchBend = value;
 		} );
 	}
 

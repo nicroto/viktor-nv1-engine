@@ -69,7 +69,7 @@ OscillatorBank.prototype = {
 				oscProp = self[ oscPropName ] = {};
 
 			( function( osc, vol ) {
-				var enabled = false, waveform = "sine", customWaveform, cent = 0, semitone = 0, octave = 0, level = 100;
+				var enabled = false, waveform = "sine", customWaveform, pitchBend = 0, cent = 0, semitone = 0, octave = 0, level = 100;
 
 				Object.defineProperty( oscProp, "enabled", {
 
@@ -117,6 +117,20 @@ OscillatorBank.prototype = {
 
 				} );
 
+				Object.defineProperty( oscProp, "pitchBend", {
+
+					get: function() {
+						return pitchBend;
+					},
+
+					set: function( value ) {
+						pitchBend = value;
+
+						self._resolveDetune( octave, semitone, cent, pitchBend, osc );
+					}
+
+				} );
+
 				Object.defineProperty( oscProp, "cent", {
 
 					get: function() {
@@ -126,7 +140,7 @@ OscillatorBank.prototype = {
 					set: function( value ) {
 						cent = value;
 
-						self._resolveDetune( octave, semitone, cent, osc );
+						self._resolveDetune( octave, semitone, cent, pitchBend, osc );
 					}
 
 				} );
@@ -140,7 +154,7 @@ OscillatorBank.prototype = {
 					set: function( value ) {
 						semitone = value;
 
-						self._resolveDetune( octave, semitone, cent, osc );
+						self._resolveDetune( octave, semitone, cent, pitchBend, osc );
 					}
 
 				} );
@@ -154,7 +168,7 @@ OscillatorBank.prototype = {
 					set: function( value ) {
 						octave = value;
 
-						self._resolveDetune( octave, semitone, cent, osc );
+						self._resolveDetune( octave, semitone, cent, pitchBend, osc );
 					}
 
 				} );
@@ -215,8 +229,8 @@ OscillatorBank.prototype = {
 		);
 	},
 
-	_resolveDetune: function( octave, semitone, cent, oscillator ) {
-		oscillator.detune.setValueAtTime( octave * OCTAVE_CENTS + semitone * SEMITONE_CENTS + cent, 0 );
+	_resolveDetune: function( octave, semitone, cent, pitchBend, oscillator ) {
+		oscillator.detune.setValueAtTime( octave * OCTAVE_CENTS + semitone * SEMITONE_CENTS + cent + pitchBend, 0 );
 	}
 
 };

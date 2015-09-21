@@ -523,18 +523,18 @@ Check the daw.delaySettings for reference on getting and setting an NV-1 propert
 ```javascript
 {
 	osc1: {
-		range:NV1Param,
-		fineDetune:NV1Param,
+		range: NV1Param,
+		fineDetune: NV1Param,
 		waveform: NV1Param
 	},
 	osc2: {
-		range:NV1Param,
-		fineDetune:NV1Param,
+		range: NV1Param,
+		fineDetune: NV1Param,
 		waveform: NV1Param
 	},
 	osc3: {
-		range:NV1Param,
-		fineDetune:NV1Param,
+		range: NV1Param,
+		fineDetune: NV1Param,
 		waveform: NV1Param
 	}
 }
@@ -800,6 +800,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.4
+ 	 * Add: FineDetune of oscillators.
  * 1.3.1
  	 * FineTune: ModWheel.
  * 1.3

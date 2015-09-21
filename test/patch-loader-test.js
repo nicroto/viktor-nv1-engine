@@ -32,12 +32,18 @@ describe( "patchLoader", function() {
 			loadedPatch.should.eql( data.expected.loadedVersion4Patch );
 		} );
 
+		it( "successfully loads v5 patch", function() {
+			var loadedPatch = patchLoader.load( data.cases.version5Patch );
+
+			loadedPatch.should.eql( data.expected.loadedVersion5Patch );
+		} );
+
 	} );
 
 	describe( "prepareForSerialization( patch )", function() {
 
 		it( "strips ranges", function() {
-			var loadedPatch = patchLoader.load( data.cases.version4Patch );
+			var loadedPatch = patchLoader.load( data.cases.version5Patch );
 
 			patchLoader.prepareForSerialization( loadedPatch );
 
