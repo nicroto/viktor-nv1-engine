@@ -101,6 +101,105 @@ module.exports = {
 			}
 		}
 	},
+	"Cut through that Mix": {
+		"version": 5,
+		"daw": {
+			"pitch": {
+				"bend": 0
+			},
+			"modulation": {
+				"rate": 0
+			},
+			"delay": {
+				"time": 450,
+				"feedback": 0.54,
+				"dry": 1,
+				"wet": 0.31
+			},
+			"reverb": {
+				"level": 0
+			},
+			"masterVolume": {
+				"level": 0.56
+			}
+		},
+		"instruments": {
+			"synth": {
+				"polyphony": {
+					"voiceCount": 1,
+					"sustain": 0
+				},
+				"modulation": {
+					"waveform": 0,
+					"portamento": 0.003333333333333333,
+					"rate": 0
+				},
+				"oscillator": {
+					"osc1": {
+						"range": 0,
+						"fineDetune": 0,
+						"waveform": 2
+					},
+					"osc2": {
+						"range": 0,
+						"fineDetune": -1.5009380863040178,
+						"waveform": 2
+					},
+					"osc3": {
+						"range": 2,
+						"fineDetune": -2.5015634771732493,
+						"waveform": 2
+					}
+				},
+				"mixer": {
+					"volume1": {
+						"enabled": 1,
+						"level": 0.69
+					},
+					"volume2": {
+						"enabled": 1,
+						"level": 0.97
+					},
+					"volume3": {
+						"enabled": 1,
+						"level": 0.35
+					}
+				},
+				"noise": {
+					"enabled": 0,
+					"type": 0,
+					"level": 0.2
+				},
+				"envelopes": {
+					"primary": {
+						"attack": 0,
+						"decay": 0.002,
+						"sustain": 1,
+						"release": 0
+					},
+					"filter": {
+						"attack": 0.5,
+						"decay": 0.5,
+						"sustain": 0.5,
+						"release": 0.1
+					}
+				},
+				"filter": {
+					"cutoff": 4800,
+					"emphasis": 2,
+					"envAmount": 0
+				},
+				"lfo": {
+					"waveform": 0,
+					"rate": 1,
+					"amount": 0
+				},
+				"pitch": {
+					"bend": 0
+				}
+			}
+		}
+	},
 	"Bass Razr Lead": {
 		"daw": {
 			"pitch": {

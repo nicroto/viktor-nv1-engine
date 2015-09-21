@@ -800,6 +800,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.4.1
+ 	 * Add: Patch: Cut through that Mix.
  * 1.4
  	 * Add: FineDetune of oscillators.
  * 1.3.1
