@@ -10,12 +10,14 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	var self = this,
 		audioContext = new AudioContext(),
 		tuna = new Tuna( audioContext ),
+		compressor = new tuna.Compressor( CONST.TUNA_COMPRESSOR_DEFAULT_SETTINGS ),
 		delay = new tuna.Delay( CONST.TUNA_DELAY_DEFAULT_SETTINGS ),
 		reverb = new tuna.Convolver( CONST.TUNA_REVERB_DEFAULT_SETTINGS ),
 		masterVolume = audioContext.createGain();
 
 	masterVolume.gain.value = 1;
 
+	compressor.connect( delay.input );
 	delay.connect( reverb.input );
 	reverb.connect( masterVolume );
 	masterVolume.connect( audioContext.destination );
@@ -24,6 +26,7 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.selectedPatch = selectedPatch;
 	self.instrumentTypes = instrumentTypes;
 	self.midiController = new MIDIController();
+	self.compressor = compressor;
 	self.delay = delay;
 	self.reverb = reverb;
 	self.masterVolume = masterVolume;
@@ -34,6 +37,7 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.settings = {
 		pitch: null,
 		modulation: null,
+		compressor: null,
 		delay: null,
 		reverb: null,
 		masterVolume: null
@@ -44,6 +48,7 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 
 	// pitch & modulation settings are set in init
 
+	self.compressorSettings = CONST.DEFAULT_COMPRESSOR_SETTINGS;
 	self.delaySettings = CONST.DEFAULT_DELAY_SETTINGS;
 	self.reverbSettings = CONST.DEFAULT_REVERB_SETTINGS;
 	self.masterVolumeSettings = CONST.DEFAULT_MASTER_VOLUME_SETTINGS;
@@ -145,7 +150,7 @@ DAW.prototype = {
 			audioContext = self.audioContext,
 			newInstrument = new Instrument( audioContext );
 
-		newInstrument.outputNode.connect( self.delay.input );
+		newInstrument.outputNode.connect( self.compressor.input );
 
 		return newInstrument;
 	},
@@ -226,6 +231,44 @@ DAW.prototype = {
 				}
 
 				self.settings.modulation = JSON.parse( JSON.stringify( settings ) );
+			}
+		} );
+
+		Object.defineProperty( self, "compressorSettings", {
+			get: function() {
+				var self = this;
+
+				return JSON.parse( JSON.stringify( self.settings.compressor ) );
+			},
+			set: function( settings ) {
+				var self = this,
+					oldSettings = self.settings.compressor ||
+						{ enabled: {}, threshold: {}, ratio: {}, knee: {}, attack: {}, release: {}, makeupGain: {} },
+					compressor = self.compressor;
+
+				if ( oldSettings.enabled.value !== settings.enabled.value ) {
+					compressor.bypass = ( settings.enabled.value === 0 );
+				}
+				if ( oldSettings.threshold.value !== settings.threshold.value ) {
+					compressor.threshold = settings.threshold.value;
+				}
+				if ( oldSettings.ratio.value !== settings.ratio.value ) {
+					compressor.ratio = settings.ratio.value;
+				}
+				if ( oldSettings.knee.value !== settings.knee.value ) {
+					compressor.knee = settings.knee.value;
+				}
+				if ( oldSettings.attack.value !== settings.attack.value ) {
+					compressor.attack = settings.attack.value;
+				}
+				if ( oldSettings.release.value !== settings.release.value ) {
+					compressor.release = settings.release.value;
+				}
+				if ( oldSettings.makeupGain.value !== settings.makeupGain.value ) {
+					compressor.makeupGain = settings.makeupGain.value;
+				}
+
+				self.settings.compressor = JSON.parse( JSON.stringify( settings ) );
 			}
 		} );
 

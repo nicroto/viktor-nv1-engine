@@ -7,6 +7,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	ENGINE_VERSION_3 = 3,
 	ENGINE_VERSION_4 = 4,
 	ENGINE_VERSION_5 = 5,
+	ENGINE_VERSION_6 = 6,
 	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
 
 var patchLoader = {
@@ -36,6 +37,10 @@ var patchLoader = {
 
 			case ENGINE_VERSION_5:
 				alteredPatch = self._loadVersion5Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_6:
+				alteredPatch = self._loadVersion6Patch( alteredPatch );
 				break;
 
 			default:
@@ -76,6 +81,7 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToMonosynth( patch );
+		self._defaultPatchToNoCompression( patch );
 		self._transposeRanges( patch, newRangeLibrary );
 
 		return patch;
@@ -87,6 +93,7 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToMonosynth( patch );
+		self._defaultPatchToNoCompression( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -106,6 +113,7 @@ var patchLoader = {
 			value: 0,
 			range: newRangeLibrary.instruments.synth.polyphony.sustain
 		};
+		self._defaultPatchToNoCompression( patch );
 
 		self._applyRange( patch, rangeLibrary );
 
@@ -122,6 +130,7 @@ var patchLoader = {
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_4,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
+		self._defaultPatchToNoCompression( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -135,6 +144,22 @@ var patchLoader = {
 	_loadVersion5Patch: function( patch ) {
 		var self = this,
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_5,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		self._defaultPatchToNoCompression( patch );
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._transposeRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_loadVersion6Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_6,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._applyRange( patch, rangeLibrary );
@@ -160,6 +185,10 @@ var patchLoader = {
 				range: latestRangeLibrary.instruments.synth.polyphony.sustain
 			}
 		};
+	},
+
+	_defaultPatchToNoCompression: function( patch ) {
+		patch.daw.compressor = CONST.DEFAULT_COMPRESSOR_SETTINGS;
 	},
 
 	_transposeRanges: function( patch, rangeLibrary ) {

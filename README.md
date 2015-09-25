@@ -428,6 +428,26 @@ daw.delaySettings = {
 };
 ```
 
+#### `daw.compressorSettings` property
+
+`Object` with structure:
+
+```javascript
+{
+	threshold: NV1Param,
+	ratio: NV1Param,
+	knee: NV1Param,
+	attack: NV1Param,
+	release: NV1Param,
+	makeupGain: NV1Param,
+	enabled: NV1Param
+}
+```
+
+**You should only set the full object not individual properties!**
+
+Check the daw.delaySettings for reference on getting and setting a daw setting property.
+
 #### `daw.reverbSettings` property
 
 `Object` with structure:
@@ -800,6 +820,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.5
+ 	 * Add: Effect: Compressor.
  * 1.4.1
  	 * Add: Patch: Cut through that Mix.
  * 1.4
