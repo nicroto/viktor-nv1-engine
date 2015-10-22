@@ -153,13 +153,21 @@ module.exports = {
 	},
 	DEFAULT_ENVELOPES_SETTINGS: {
 		primary: {
+			reset: {
+				value: 0.01,
+				range: [ 0, 0.05 ]
+			},
+			start: {
+				value: 0.00001,
+				range: [ 0, 1 ]
+			},
 			attack: {
 				value: 0.5,
-				range: [ 0, 2 ]
+				range: [ 0, 8 ]
 			},
 			decay: {
 				value: 0.5,
-				range: [ 0.002, 2 ]
+				range: [ 0, 8 ]
 			},
 			sustain: {
 				value: 0.5,
@@ -167,17 +175,25 @@ module.exports = {
 			},
 			release: {
 				value: 0.1,
-				range: [ 0, 2 ]
+				range: [ 0, 8 ]
 			}
 		},
 		filter: {
+			reset: {
+				value: 0.01,
+				range: [ 0, 0.05 ]
+			},
+			start: {
+				value: 0.00001,
+				range: [ 0.00001, 1 ]
+			},
 			attack: {
 				value: 0.5,
-				range: [ 0, 2 ]
+				range: [ 0, 8 ]
 			},
 			decay: {
 				value: 0.5,
-				range: [ 0, 2 ]
+				range: [ 0, 8 ]
 			},
 			sustain: {
 				value: 0.5,
@@ -185,7 +201,7 @@ module.exports = {
 			},
 			release: {
 				value: 0.1,
-				range: [ 0, 2 ]
+				range: [ 0, 8 ]
 			}
 		}
 	},

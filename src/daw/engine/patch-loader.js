@@ -8,6 +8,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	ENGINE_VERSION_4 = 4,
 	ENGINE_VERSION_5 = 5,
 	ENGINE_VERSION_6 = 6,
+	ENGINE_VERSION_7 = 7,
 	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
 
 var patchLoader = {
@@ -41,6 +42,10 @@ var patchLoader = {
 
 			case ENGINE_VERSION_6:
 				alteredPatch = self._loadVersion6Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_7:
+				alteredPatch = self._loadVersion7Patch( alteredPatch );
 				break;
 
 			default:
@@ -82,7 +87,8 @@ var patchLoader = {
 
 		self._defaultPatchToMonosynth( patch );
 		self._defaultPatchToNoCompression( patch );
-		self._transposeRanges( patch, newRangeLibrary );
+		self._defaultPatchToOriginalEnvelopeReset( patch );
+		self._applyNewerRanges( patch, newRangeLibrary );
 
 		return patch;
 	},
@@ -94,11 +100,12 @@ var patchLoader = {
 
 		self._defaultPatchToMonosynth( patch );
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToOriginalEnvelopeReset( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
 		if ( rangeLibrary !== newRangeLibrary ) {
-			self._transposeRanges( patch, newRangeLibrary );
+			self._applyNewerRanges( patch, newRangeLibrary );
 		}
 
 		return patch;
@@ -114,12 +121,13 @@ var patchLoader = {
 			range: newRangeLibrary.instruments.synth.polyphony.sustain
 		};
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToOriginalEnvelopeReset( patch );
 
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
 		if ( rangeLibrary !== newRangeLibrary ) {
-			self._transposeRanges( patch, newRangeLibrary );
+			self._applyNewerRanges( patch, newRangeLibrary );
 		}
 
 		return patch;
@@ -131,11 +139,12 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToOriginalEnvelopeReset( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
 		if ( rangeLibrary !== newRangeLibrary ) {
-			self._transposeRanges( patch, newRangeLibrary );
+			self._applyNewerRanges( patch, newRangeLibrary );
 		}
 
 		return patch;
@@ -147,11 +156,12 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToOriginalEnvelopeReset( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
 		if ( rangeLibrary !== newRangeLibrary ) {
-			self._transposeRanges( patch, newRangeLibrary );
+			self._applyNewerRanges( patch, newRangeLibrary );
 		}
 
 		return patch;
@@ -162,11 +172,27 @@ var patchLoader = {
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_6,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
+		self._defaultPatchToOriginalEnvelopeReset( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
 		if ( rangeLibrary !== newRangeLibrary ) {
-			self._transposeRanges( patch, newRangeLibrary );
+			self._applyNewerRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_loadVersion7Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_7,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._applyNewerRanges( patch, newRangeLibrary );
 		}
 
 		return patch;
@@ -191,7 +217,29 @@ var patchLoader = {
 		patch.daw.compressor = CONST.DEFAULT_COMPRESSOR_SETTINGS;
 	},
 
-	_transposeRanges: function( patch, rangeLibrary ) {
+	_defaultPatchToOriginalEnvelopeReset: function( patch ) {
+		var latestRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		patch.instruments.synth.envelopes.primary.reset = {
+			value: 0.01,
+			range: latestRangeLibrary.instruments.synth.envelopes.primary.reset
+		};
+		patch.instruments.synth.envelopes.primary.start = {
+			value: 0.00001,
+			range: latestRangeLibrary.instruments.synth.envelopes.primary.start
+		};
+
+		patch.instruments.synth.envelopes.filter.reset = {
+			value: 0.01,
+			range: latestRangeLibrary.instruments.synth.envelopes.primary.reset
+		};
+		patch.instruments.synth.envelopes.filter.start = {
+			value: 0.00001,
+			range: latestRangeLibrary.instruments.synth.envelopes.primary.start
+		};
+	},
+
+	_applyNewerRanges: function( patch, rangeLibrary ) {
 		var self = this;
 
 		self._iterateTrees( patch, rangeLibrary, function( node, key, rangeProp ) {
@@ -199,8 +247,8 @@ var patchLoader = {
 				isLeaf = ( prop && prop.range && prop.range.length && prop.range.length === 2 && prop.value !== undefined &&
 					rangeProp && rangeProp.length && rangeProp.length === 2 );
 
-			if ( isLeaf ) {
-				node[ key ] = settingsConvertor.transposeParam( prop, rangeProp );
+			if ( isLeaf && ( prop.range[ 0 ] !== rangeProp[ 0 ] || prop.range[ 1 ] !== rangeProp[ 1 ] ) ) {
+				prop.range = rangeProp;
 			}
 
 			return isLeaf;

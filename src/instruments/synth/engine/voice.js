@@ -154,8 +154,8 @@ Voice.prototype = {
 			portamento: portamento
 		};
 
-		gainEnvelope.start( attackPeak );
-		filterEnvelope.start( attackPeak );
+		gainEnvelope.begin( attackPeak );
+		filterEnvelope.begin( attackPeak );
 
 		if ( self._isSustainOn ) {
 			self.sustainedNote = noteFrequency;
@@ -403,6 +403,8 @@ Voice.prototype = {
 				var oldSettings = self.settings.envelopes,
 					resolve = function( oldSettings, settings, envelope ) {
 						[
+							"reset",
+							"start",
 							"attack",
 							"decay",
 							"sustain",
