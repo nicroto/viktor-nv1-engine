@@ -44,7 +44,9 @@ MIDIController.prototype = {
 			inputs = inputs();
 
 			if ( inputs.length === 0 ) {
-				callback( noDevicesMessage );
+				if ( callback ) {
+					callback( noDevicesMessage );
+				}
 			} else {
 				for ( var i = 0; i < inputs.length; i++ ) {
 					inputs[ i ].onmidimessage = midiMessageHandler;
@@ -70,7 +72,10 @@ MIDIController.prototype = {
 			if ( !hasDevices ) {
 				console.log( noDevicesMessage );
 			}
-			callback();
+
+			if ( callback ) {
+				callback();
+			}
 
 		}
 	},
