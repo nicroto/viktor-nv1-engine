@@ -52,38 +52,35 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.delaySettings = CONST.DEFAULT_DELAY_SETTINGS;
 	self.reverbSettings = CONST.DEFAULT_REVERB_SETTINGS;
 	self.masterVolumeSettings = CONST.DEFAULT_MASTER_VOLUME_SETTINGS;
+
+	self.init();
 }
 
 DAW.prototype = {
 
-	init: function( callback ) {
+	init: function() {
 		var self = this,
 			audioContext = self.audioContext,
 			midiController = self.midiController,
 			instruments = self.instruments,
 			quietPatchChange = true;
 
-		midiController.init( function() {
-			midiController.setMessageHandler(
-				self.propagateMidiMessage.bind( self )
-			);
+		midiController.init();
 
-			self.instrumentTypes.forEach( function( Instrument ) {
-				instruments.push( self.createInstrument( Instrument ) );
-			} );
+		midiController.setMessageHandler(
+			self.propagateMidiMessage.bind( self )
+		);
 
-			self.selectInstrument( 0 );
-
-			self.pitchSettings = CONST.DEFAULT_PITCH_SETTINGS;
-			self.modulationSettings = CONST.DEFAULT_MODULATION_SETTINGS;
-
-			self.loadPatch( self.selectedPatch, quietPatchChange );
-
-			if ( callback ) {
-				callback();
-			}
+		self.instrumentTypes.forEach( function( Instrument ) {
+			instruments.push( self.createInstrument( Instrument ) );
 		} );
 
+		self.selectInstrument( 0 );
+
+		self.pitchSettings = CONST.DEFAULT_PITCH_SETTINGS;
+		self.modulationSettings = CONST.DEFAULT_MODULATION_SETTINGS;
+
+		self.loadPatch( self.selectedPatch, quietPatchChange );
 		self.audioContext = audioContext;
 	},
 

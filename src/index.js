@@ -10,7 +10,7 @@ exports.Synth = Synth;
 
 exports.PatchLibrary = PatchLibrary;
 
-exports.create = function( AudioContext, store, callback ) {
+exports.create = function( AudioContext, store ) {
 
 	var patchLibrary = new PatchLibrary( "VIKTOR_SYNTH", require( "./patches/defaults" ), store ),
 		dawEngine = new DAW(
@@ -21,12 +21,9 @@ exports.create = function( AudioContext, store, callback ) {
 			patchLibrary.getSelected().patch
 		);
 
-	dawEngine.init( function() {
-
-		if ( callback ) {
-			callback( dawEngine, patchLibrary );
-		}
-
-	} );
+	return {
+		dawEngine: dawEngine,
+		patchLibrary: patchLibrary
+	};
 
 };

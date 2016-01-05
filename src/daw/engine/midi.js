@@ -18,12 +18,16 @@ MIDIController.prototype = {
 				self.onMidiAccess.bind( self, callback ),
 				function( error ) {
 					console.log( error );
-					callback();
+					if ( callback ){
+						callback();
+					}
 				}
 			);
 		} else {
 			console.log( "Midi API is unavailable in this browser." );
-			callback();
+			if ( callback ){
+				callback();
+			}
 		}
 	},
 

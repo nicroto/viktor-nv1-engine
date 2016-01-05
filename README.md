@@ -34,7 +34,7 @@ var DAW = require( "./daw/daw" ),
 
 // ...
 
-exports.create = function( AudioContext, store, callback ) {
+exports.create = function( AudioContext, store ) {
 
 	var patchLibrary = new PatchLibrary( "VIKTOR_SYNTH", require( "./patches/defaults" ), store ),
 		dawEngine = new DAW(
@@ -45,18 +45,16 @@ exports.create = function( AudioContext, store, callback ) {
 			patchLibrary.getSelected().patch
 		);
 
-	dawEngine.init( function() {
-
-		if ( callback ) {
-			callback( dawEngine, patchLibrary );
-		}
-
-	} );
+	return {
+		dawEngine: dawEngine,
+		patchLibrary: patchLibrary
+	};
 
 };
+
 ```
 
-The callback is called with 2 params - `dawEngine` and `patchLibrary`.
+The function returns an object with 2 fields - `dawEngine` and `patchLibrary`.
 
 `dawEngine` is a shell around the actual synth, which theoretically (hasn't been used, yet) can hold more than 1 instrument. It also separates the pitch-bend wheel, modulation wheel, Effects Section and master volume from the instrument(s).
 
@@ -820,6 +818,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.6
+ 	 * (BREAKING API CHANGE)Improve: Remove the need for async init of Viktor.
  * 1.5
  	 * Add: Effect: Compressor.
  * 1.4.1
