@@ -818,8 +818,10 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
- * 1.6.1
+ * 1.6.2
  	 * Fix: patches with Envelope set to Release:0 stop system sound in Chrome.
+ * 1.6.1
+ 	 * [Fix: failed release].
  * 1.6
  	 * (BREAKING API CHANGE)Improve: Remove the need for async init of Viktor.
  * 1.5
