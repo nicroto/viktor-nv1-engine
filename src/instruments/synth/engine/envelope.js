@@ -44,7 +44,7 @@ Envelope.prototype = {
 			audioContext = self.audioContext,
 			propName = self.propName,
 			node = self.node,
-			release = self.release;
+			release = self.release || FAKE_ZERO;
 
 		time = customOrDefault( time, audioContext.currentTime );
 
