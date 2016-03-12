@@ -818,6 +818,37 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.7
+ 	 * Add: Patch: "EQUIVALENT-BASS-1".
+ 	 * Add: Patch: "BRAINPAIN Mod Wheel Frenzy".
+ 	 * Add: Patch: "Pumped Bass".
+ 	 * Add: Patch: "Cooh bass 1".
+ 	 * Add: Patch: "Timmo^Bass01".
+ 	 * Add: Patch: "Freqax Bass".
+ 	 * Add: Patch: "Niada's Sap Bass".
+ 	 * Add: Patch: "Eclectic Method Bass".
+ 	 * Add: Patch: "Soft Bass".
+ 	 * Add: Patch: "8 mile Free World Car Bass".
+ 	 * Add: Patch: "Muffled Razr Bass".
+ 	 * Add: Patch: "Da Buzzer".
+ 	 * Add: Patch: "Glass Bell Bass".
+ 	 * Add: Patch: "Turbo Saw Lead".
+ 	 * Add: Patch: "singende Säge Lead".
+ 	 * Add: Patch: "Orchestra Pad".
+ 	 * Add: Patch: "Netjester Kush Pad".
+ 	 * Add: Patch: "Bass Fanfares".
+ 	 * Add: Patch: "suitcase organ pad".
+ 	 * Add: Patch: "Sirens' Awakening".
+ 	 * Add: Patch: "Long Kiss".
+ 	 * Add: Patch: "Danger Bubbles".
+ 	 * Add: Patch: "Syo - demo".
+ 	 * Add: Patch: "Flint Kids Shuttledron".
+ 	 * Add: Patch: "Whale song - Synthakt".
+ 	 * Add: Patch: "AC1".
+ 	 * Add: Patch: "AC2".
+ 	 * Add: Patch: "Ghosts".
+ 	 * Add: Patch: "BB8".
+ 	 * Add: Patch: "Outer Space".
  * 1.6.2
  	 * Fix: patches with Envelope set to Release:0 stop system sound in Chrome.
  * 1.6.1
