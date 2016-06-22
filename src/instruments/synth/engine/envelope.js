@@ -1,6 +1,7 @@
 'use strict';
 
-var FAKE_ZERO = 0.00001;
+var FAKE_ZERO = 0.00001,
+	ONE_MILLISECOND_IN_SECONDS = 0.001;
 
 function customOrDefault( customValue, defaultValue ) {
 	return customValue !== undefined ? customValue : defaultValue;
@@ -44,7 +45,7 @@ Envelope.prototype = {
 			audioContext = self.audioContext,
 			propName = self.propName,
 			node = self.node,
-			release = self.release || FAKE_ZERO;
+			release = self.release || ONE_MILLISECOND_IN_SECONDS;
 
 		time = customOrDefault( time, audioContext.currentTime );
 

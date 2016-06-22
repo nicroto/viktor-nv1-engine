@@ -31,7 +31,9 @@ Library.prototype = {
 			customPatches = self.customPatches,
 			unsavedPatch = self.unsavedPatch,
 			selectedName = self.selectedName,
-			result = null;
+			result = null,
+			isDefault = defaultPatches[ selectedName ] ? true : false,
+			isCustom = customPatches[ selectedName ] ? true : false;
 
 		if ( unsavedPatch ) {
 			result = {
@@ -39,8 +41,7 @@ Library.prototype = {
 				patch: unsavedPatch,
 				isUnsaved: true
 			};
-		} else if ( selectedName ) {
-			var isCustom = customPatches[ selectedName ] ? true : false;
+		} else if ( selectedName && (isDefault || isCustom) ) {
 			result = {
 				name: selectedName,
 				patch: isCustom ? customPatches[ selectedName ] : defaultPatches[ selectedName ],
@@ -48,7 +49,7 @@ Library.prototype = {
 			};
 		} else {
 			var defaultNames = Object.keys( defaultPatches ),
-				personalNames = Object.keys( customPatches ),
+				customNames = Object.keys( customPatches ),
 				name;
 
 			if ( defaultNames.length ) {
@@ -59,13 +60,17 @@ Library.prototype = {
 					patch: defaultPatches[ name ]
 				};
 			} else if ( customPatches.length ) {
-				name = personalNames[ 0 ];
+				name = customNames[ 0 ];
 
 				result = {
 					name: name,
 					patch: customPatches[ name ],
 					isCustom: true
 				};
+			}
+
+			if ( selectedName && name ) {
+				self._quietSelectPatch( name );
 			}
 		}
 
@@ -136,6 +141,14 @@ Library.prototype = {
 	},
 
 	selectPatch: function( patchName ) {
+		var self = this;
+
+		self._quietSelectPatch( patchName );
+
+		self._announceSelectionChange();
+	},
+
+	_quietSelectPatch: function( patchName ) {
 		var self = this,
 			store = self.store;
 
@@ -144,8 +157,6 @@ Library.prototype = {
 
 		self.selectedName = patchName;
 		store.set( self.SELECTED, patchName );
-
-		self._announceSelectionChange();
 	},
 
 	onSelectionChange: function( handler ) {

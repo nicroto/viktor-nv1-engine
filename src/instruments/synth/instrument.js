@@ -72,11 +72,19 @@ Instrument.prototype = {
 	name: "synth",
 
 	loadPatch: function( patch ) {
-		var self = this;
+		var self = this,
+			audioContext = self.audioContext,
+			outputNode = self.outputNode;
+
+		// lower volume so there is no glitches on param change
+		outputNode.gain.setTargetAtTime( 0.01, audioContext.currentTime + 0.01, 0.01 );
 
 		Object.keys( patch ).forEach( function( key ) {
 			self[ key + "Settings" ] = patch[ key ];
 		} );
+
+		// bring volume back up
+		outputNode.gain.setTargetAtTime( 1.0, audioContext.currentTime + 0.5, 1/2 );
 	},
 
 	getPatch: function() {

@@ -200,105 +200,105 @@ module.exports = {
 			}
 		}
 	},
-	"BRAINPAIN Mod Wheel Frenzy": {
-		"version": 5,
-		"daw": {
-			"pitch": {
-				"bend": 0
-			},
-			"modulation": {
-				"rate": 0
-			},
-			"delay": {
-				"time": 570,
-				"feedback": 0.45,
-				"dry": 1,
-				"wet": 0
-			},
-			"reverb": {
-				"level": 0
-			},
-			"masterVolume": {
-				"level": 1
-			}
-		},
-		"instruments": {
-			"synth": {
-				"polyphony": {
-					"voiceCount": 3,
-					"sustain": 0
-				},
-				"modulation": {
-					"waveform": 0,
-					"portamento": 0.039999999999999994,
-					"rate": 0
-				},
-				"oscillator": {
-					"osc1": {
-						"range": -3,
-						"fineDetune": 0,
-						"waveform": 0
-					},
-					"osc2": {
-						"range": -2,
-						"fineDetune": -0.5003126954346726,
-						"waveform": 2
-					},
-					"osc3": {
-						"range": -1,
-						"fineDetune": 698.9368355222014,
-						"waveform": 2
-					}
-				},
-				"mixer": {
-					"volume1": {
-						"enabled": 1,
-						"level": 0.83
-					},
-					"volume2": {
-						"enabled": 1,
-						"level": 0.49
-					},
-					"volume3": {
-						"enabled": 1,
-						"level": 0.31
-					}
-				},
-				"noise": {
-					"enabled": 0,
-					"level": 0.65,
-					"type": 0
-				},
-				"envelopes": {
-					"primary": {
-						"attack": 0,
-						"decay": 0.002,
-						"sustain": 1,
-						"release": 0.06
-					},
-					"filter": {
-						"attack": 0.52,
-						"decay": 2,
-						"sustain": 0.7902100000000001,
-						"release": 0.06
-					}
-				},
-				"filter": {
-					"cutoff": 2224,
-					"emphasis": 0.4,
-					"envAmount": 0.4
-				},
-				"lfo": {
-					"waveform": 0,
-					"rate": 1,
-					"amount": 0.46
-				},
-				"pitch": {
-					"bend": 0
-				}
-			}
-		}
-	},
+	// "BRAINPAIN Mod Wheel Frenzy": {
+	// 	"version": 5,
+	// 	"daw": {
+	// 		"pitch": {
+	// 			"bend": 0
+	// 		},
+	// 		"modulation": {
+	// 			"rate": 0
+	// 		},
+	// 		"delay": {
+	// 			"time": 570,
+	// 			"feedback": 0.45,
+	// 			"dry": 1,
+	// 			"wet": 0
+	// 		},
+	// 		"reverb": {
+	// 			"level": 0
+	// 		},
+	// 		"masterVolume": {
+	// 			"level": 1
+	// 		}
+	// 	},
+	// 	"instruments": {
+	// 		"synth": {
+	// 			"polyphony": {
+	// 				"voiceCount": 3,
+	// 				"sustain": 0
+	// 			},
+	// 			"modulation": {
+	// 				"waveform": 0,
+	// 				"portamento": 0.039999999999999994,
+	// 				"rate": 0
+	// 			},
+	// 			"oscillator": {
+	// 				"osc1": {
+	// 					"range": -3,
+	// 					"fineDetune": 0,
+	// 					"waveform": 0
+	// 				},
+	// 				"osc2": {
+	// 					"range": -2,
+	// 					"fineDetune": -0.5003126954346726,
+	// 					"waveform": 2
+	// 				},
+	// 				"osc3": {
+	// 					"range": -1,
+	// 					"fineDetune": 698.9368355222014,
+	// 					"waveform": 2
+	// 				}
+	// 			},
+	// 			"mixer": {
+	// 				"volume1": {
+	// 					"enabled": 1,
+	// 					"level": 0.83
+	// 				},
+	// 				"volume2": {
+	// 					"enabled": 1,
+	// 					"level": 0.49
+	// 				},
+	// 				"volume3": {
+	// 					"enabled": 1,
+	// 					"level": 0.31
+	// 				}
+	// 			},
+	// 			"noise": {
+	// 				"enabled": 0,
+	// 				"level": 0.65,
+	// 				"type": 0
+	// 			},
+	// 			"envelopes": {
+	// 				"primary": {
+	// 					"attack": 0,
+	// 					"decay": 0.002,
+	// 					"sustain": 1,
+	// 					"release": 0.06
+	// 				},
+	// 				"filter": {
+	// 					"attack": 0.52,
+	// 					"decay": 2,
+	// 					"sustain": 0.7902100000000001,
+	// 					"release": 0.06
+	// 				}
+	// 			},
+	// 			"filter": {
+	// 				"cutoff": 2224,
+	// 				"emphasis": 0.4,
+	// 				"envAmount": 0.4
+	// 			},
+	// 			"lfo": {
+	// 				"waveform": 0,
+	// 				"rate": 1,
+	// 				"amount": 0.46
+	// 			},
+	// 			"pitch": {
+	// 				"bend": 0
+	// 			}
+	// 		}
+	// 	}
+	// },
 	"Pumped Bass": {
 		"version": 6,
 		"daw": {
@@ -407,105 +407,105 @@ module.exports = {
 			}
 		}
 	},
-	"Cooh bass 1": {
-		"version": 5,
-		"daw": {
-			"pitch": {
-				"bend": 0
-			},
-			"modulation": {
-				"rate": 0
-			},
-			"delay": {
-				"time": 370,
-				"feedback": 0.5670000000000001,
-				"dry": 0.75,
-				"wet": 0
-			},
-			"reverb": {
-				"level": 0.35
-			},
-			"masterVolume": {
-				"level": 0.51
-			}
-		},
-		"instruments": {
-			"synth": {
-				"polyphony": {
-					"voiceCount": 1,
-					"sustain": 0
-				},
-				"modulation": {
-					"waveform": 0,
-					"portamento": 0.08499999999999999,
-					"rate": 0
-				},
-				"oscillator": {
-					"osc1": {
-						"range": -2,
-						"fineDetune": 0,
-						"waveform": 0
-					},
-					"osc2": {
-						"range": -3,
-						"fineDetune": -88.5553470919325,
-						"waveform": 1
-					},
-					"osc3": {
-						"range": -2,
-						"fineDetune": -100.56285178236396,
-						"waveform": 1
-					}
-				},
-				"mixer": {
-					"volume1": {
-						"enabled": 1,
-						"level": 0.65
-					},
-					"volume2": {
-						"enabled": 1,
-						"level": 0.85
-					},
-					"volume3": {
-						"enabled": 1,
-						"level": 0.22
-					}
-				},
-				"noise": {
-					"enabled": 1,
-					"level": 0.13,
-					"type": 2
-				},
-				"envelopes": {
-					"primary": {
-						"attack": 0,
-						"decay": 0.002,
-						"sustain": 1,
-						"release": 0.72
-					},
-					"filter": {
-						"attack": 0,
-						"decay": 1.04,
-						"sustain": 0.25075,
-						"release": 0
-					}
-				},
-				"filter": {
-					"cutoff": 6560,
-					"emphasis": 4,
-					"envAmount": 1
-				},
-				"lfo": {
-					"waveform": 4,
-					"rate": 4,
-					"amount": 0.86
-				},
-				"pitch": {
-					"bend": 0
-				}
-			}
-		}
-	},
+	// "Cooh bass 1": {
+	// 	"version": 5,
+	// 	"daw": {
+	// 		"pitch": {
+	// 			"bend": 0
+	// 		},
+	// 		"modulation": {
+	// 			"rate": 0
+	// 		},
+	// 		"delay": {
+	// 			"time": 370,
+	// 			"feedback": 0.5670000000000001,
+	// 			"dry": 0.75,
+	// 			"wet": 0
+	// 		},
+	// 		"reverb": {
+	// 			"level": 0.35
+	// 		},
+	// 		"masterVolume": {
+	// 			"level": 0.51
+	// 		}
+	// 	},
+	// 	"instruments": {
+	// 		"synth": {
+	// 			"polyphony": {
+	// 				"voiceCount": 1,
+	// 				"sustain": 0
+	// 			},
+	// 			"modulation": {
+	// 				"waveform": 0,
+	// 				"portamento": 0.08499999999999999,
+	// 				"rate": 0
+	// 			},
+	// 			"oscillator": {
+	// 				"osc1": {
+	// 					"range": -2,
+	// 					"fineDetune": 0,
+	// 					"waveform": 0
+	// 				},
+	// 				"osc2": {
+	// 					"range": -3,
+	// 					"fineDetune": -88.5553470919325,
+	// 					"waveform": 1
+	// 				},
+	// 				"osc3": {
+	// 					"range": -2,
+	// 					"fineDetune": -100.56285178236396,
+	// 					"waveform": 1
+	// 				}
+	// 			},
+	// 			"mixer": {
+	// 				"volume1": {
+	// 					"enabled": 1,
+	// 					"level": 0.65
+	// 				},
+	// 				"volume2": {
+	// 					"enabled": 1,
+	// 					"level": 0.85
+	// 				},
+	// 				"volume3": {
+	// 					"enabled": 1,
+	// 					"level": 0.22
+	// 				}
+	// 			},
+	// 			"noise": {
+	// 				"enabled": 1,
+	// 				"level": 0.13,
+	// 				"type": 2
+	// 			},
+	// 			"envelopes": {
+	// 				"primary": {
+	// 					"attack": 0,
+	// 					"decay": 0.002,
+	// 					"sustain": 1,
+	// 					"release": 0.72
+	// 				},
+	// 				"filter": {
+	// 					"attack": 0,
+	// 					"decay": 1.04,
+	// 					"sustain": 0.25075,
+	// 					"release": 0
+	// 				}
+	// 			},
+	// 			"filter": {
+	// 				"cutoff": 6560,
+	// 				"emphasis": 4,
+	// 				"envAmount": 1
+	// 			},
+	// 			"lfo": {
+	// 				"waveform": 4,
+	// 				"rate": 4,
+	// 				"amount": 0.86
+	// 			},
+	// 			"pitch": {
+	// 				"bend": 0
+	// 			}
+	// 		}
+	// 	}
+	// },
 	"Timmo^Bass01": {
 		"version": 6,
 		"daw": {
@@ -2410,6 +2410,438 @@ module.exports = {
 		}
 	},
 
+    "EQUIVALENT-CHORD-PAD-1": {
+        "version": 6,
+        "daw": {
+            "pitch": {
+                "bend": 0
+            },
+            "modulation": {
+                "rate": 1.7578125
+            },
+            "compressor": {
+                "enabled": 1,
+                "threshold": -15.5,
+                "ratio": 4.300000000000001,
+                "knee": 2.1,
+                "attack": 0.01,
+                "release": 402.1,
+                "makeupGain": 0
+            },
+            "delay": {
+                "time": 540,
+                "feedback": 0.675,
+                "dry": 1,
+                "wet": 0.88
+            },
+            "reverb": {
+                "level": 1
+            },
+            "masterVolume": {
+                "level": 0.41
+            }
+        },
+        "instruments": {
+            "synth": {
+                "polyphony": {
+                    "voiceCount": 4,
+                    "sustain": 0
+                },
+                "modulation": {
+                    "waveform": 0,
+                    "portamento": 0.13666666666666666,
+                    "rate": 1.7578125
+                },
+                "oscillator": {
+                    "osc1": {
+                        "range": -1,
+                        "fineDetune": 0,
+                        "waveform": 2
+                    },
+                    "osc2": {
+                        "range": -3,
+                        "fineDetune": -23.514696685428362,
+                        "waveform": 2
+                    },
+                    "osc3": {
+                        "range": -1,
+                        "fineDetune": -502.8142589118199,
+                        "waveform": 2
+                    }
+                },
+                "mixer": {
+                    "volume1": {
+                        "enabled": 1,
+                        "level": 1
+                    },
+                    "volume2": {
+                        "enabled": 1,
+                        "level": 1
+                    },
+                    "volume3": {
+                        "enabled": 1,
+                        "level": 1
+                    }
+                },
+                "noise": {
+                    "enabled": 1,
+                    "level": 0.51,
+                    "type": 2
+                },
+                "envelopes": {
+                    "primary": {
+                        "attack": 2,
+                        "decay": 1.8201800000000001,
+                        "sustain": 0.85,
+                        "release": 2
+                    },
+                    "filter": {
+                        "attack": 2,
+                        "decay": 2,
+                        "sustain": 0.020980000000000002,
+                        "release": 2
+                    }
+                },
+                "filter": {
+                    "cutoff": 1696,
+                    "emphasis": 7.2,
+                    "envAmount": 1
+                },
+                "lfo": {
+                    "waveform": 4,
+                    "rate": 2,
+                    "amount": 0.17
+                },
+                "pitch": {
+                    "bend": 0
+                }
+            }
+        }
+    },
+    "EQUIVALENT-CHORD-PAD-2": {
+        "version": 6,
+        "daw": {
+            "pitch": {
+                "bend": 0
+            },
+            "modulation": {
+                "rate": 0.703125
+            },
+            "compressor": {
+                "enabled": 1,
+                "threshold": -15.5,
+                "ratio": 4.300000000000001,
+                "knee": 10.1,
+                "attack": 0.01,
+                "release": 402.1,
+                "makeupGain": 0
+            },
+            "delay": {
+                "time": 420,
+                "feedback": 0.675,
+                "dry": 1,
+                "wet": 0.88
+            },
+            "reverb": {
+                "level": 1
+            },
+            "masterVolume": {
+                "level": 0.37
+            }
+        },
+        "instruments": {
+            "synth": {
+                "polyphony": {
+                    "voiceCount": 4,
+                    "sustain": 0
+                },
+                "modulation": {
+                    "waveform": 3,
+                    "portamento": 0.135,
+                    "rate": 0.703125
+                },
+                "oscillator": {
+                    "osc1": {
+                        "range": -2,
+                        "fineDetune": 0,
+                        "waveform": 2
+                    },
+                    "osc2": {
+                        "range": -3,
+                        "fineDetune": -14.509068167604823,
+                        "waveform": 3
+                    },
+                    "osc3": {
+                        "range": 0,
+                        "fineDetune": -482.801751094434,
+                        "waveform": 0
+                    }
+                },
+                "mixer": {
+                    "volume1": {
+                        "enabled": 1,
+                        "level": 1
+                    },
+                    "volume2": {
+                        "enabled": 1,
+                        "level": 0.51
+                    },
+                    "volume3": {
+                        "enabled": 1,
+                        "level": 0.99
+                    }
+                },
+                "noise": {
+                    "enabled": 1,
+                    "level": 0.14,
+                    "type": 2
+                },
+                "envelopes": {
+                    "primary": {
+                        "attack": 2,
+                        "decay": 1.8201800000000001,
+                        "sustain": 0.85,
+                        "release": 2
+                    },
+                    "filter": {
+                        "attack": 2,
+                        "decay": 2,
+                        "sustain": 0.020980000000000002,
+                        "release": 2
+                    }
+                },
+                "filter": {
+                    "cutoff": 4496,
+                    "emphasis": 4.800000000000001,
+                    "envAmount": 0
+                },
+                "lfo": {
+                    "waveform": 4,
+                    "rate": 2,
+                    "amount": 0.17
+                },
+                "pitch": {
+                    "bend": 0
+                }
+            }
+        }
+    },
+    "Gryphon 1977": {
+        "version": 6,
+        "daw": {
+            "pitch": {
+                "bend": 0
+            },
+            "modulation": {
+                "rate": 0
+            },
+            "compressor": {
+                "enabled": 1,
+                "threshold": -22.5,
+                "ratio": 5.1000000000000005,
+                "knee": 2,
+                "attack": 0.1,
+                "release": 20,
+                "makeupGain": 2.1
+            },
+            "delay": {
+                "time": 290,
+                "feedback": 0.684,
+                "dry": 0.57,
+                "wet": 0.13
+            },
+            "reverb": {
+                "level": 0.16
+            },
+            "masterVolume": {
+                "level": 0.66
+            }
+        },
+        "instruments": {
+            "synth": {
+                "polyphony": {
+                    "voiceCount": 8,
+                    "sustain": 0
+                },
+                "modulation": {
+                    "waveform": 0,
+                    "portamento": 0,
+                    "rate": 0
+                },
+                "oscillator": {
+                    "osc1": {
+                        "range": -2,
+                        "fineDetune": 0,
+                        "waveform": 5
+                    },
+                    "osc2": {
+                        "range": -1,
+                        "fineDetune": 20.51282051282044,
+                        "waveform": 2
+                    },
+                    "osc3": {
+                        "range": -1,
+                        "fineDetune": 17.51094434021263,
+                        "waveform": 1
+                    }
+                },
+                "mixer": {
+                    "volume1": {
+                        "enabled": 1,
+                        "level": 0.32
+                    },
+                    "volume2": {
+                        "enabled": 1,
+                        "level": 0.26
+                    },
+                    "volume3": {
+                        "enabled": 1,
+                        "level": 0.23
+                    }
+                },
+                "noise": {
+                    "enabled": 0,
+                    "level": 0,
+                    "type": 1
+                },
+                "envelopes": {
+                    "primary": {
+                        "attack": 0.28,
+                        "decay": 0.78122,
+                        "sustain": 0.83,
+                        "release": 0.52
+                    },
+                    "filter": {
+                        "attack": 0,
+                        "decay": 0.52,
+                        "sustain": 0.49051,
+                        "release": 0.6
+                    }
+                },
+                "filter": {
+                    "cutoff": 2208,
+                    "emphasis": 6.800000000000001,
+                    "envAmount": 0.67
+                },
+                "lfo": {
+                    "waveform": 2,
+                    "rate": 1,
+                    "amount": 0
+                },
+                "pitch": {
+                    "bend": 0
+                }
+            }
+        }
+    },
+    "Gryphon 1979": {
+        "version": 6,
+        "daw": {
+            "pitch": {
+                "bend": 0
+            },
+            "modulation": {
+                "rate": 0
+            },
+            "compressor": {
+                "enabled": 1,
+                "threshold": -22.5,
+                "ratio": 5.1000000000000005,
+                "knee": 2,
+                "attack": 0.1,
+                "release": 20,
+                "makeupGain": 2.1
+            },
+            "delay": {
+                "time": 290,
+                "feedback": 0.684,
+                "dry": 0.57,
+                "wet": 0.13
+            },
+            "reverb": {
+                "level": 0.16
+            },
+            "masterVolume": {
+                "level": 0.66
+            }
+        },
+        "instruments": {
+            "synth": {
+                "polyphony": {
+                    "voiceCount": 8,
+                    "sustain": 0
+                },
+                "modulation": {
+                    "waveform": 0,
+                    "portamento": 0,
+                    "rate": 0
+                },
+                "oscillator": {
+                    "osc1": {
+                        "range": -2,
+                        "fineDetune": 0,
+                        "waveform": 4
+                    },
+                    "osc2": {
+                        "range": -1,
+                        "fineDetune": 20.51282051282044,
+                        "waveform": 2
+                    },
+                    "osc3": {
+                        "range": -1,
+                        "fineDetune": 17.51094434021263,
+                        "waveform": 2
+                    }
+                },
+                "mixer": {
+                    "volume1": {
+                        "enabled": 1,
+                        "level": 0.25
+                    },
+                    "volume2": {
+                        "enabled": 1,
+                        "level": 0.23
+                    },
+                    "volume3": {
+                        "enabled": 1,
+                        "level": 0.32
+                    }
+                },
+                "noise": {
+                    "enabled": 0,
+                    "level": 0,
+                    "type": 1
+                },
+                "envelopes": {
+                    "primary": {
+                        "attack": 0.28,
+                        "decay": 0.78122,
+                        "sustain": 0.83,
+                        "release": 0.52
+                    },
+                    "filter": {
+                        "attack": 0,
+                        "decay": 0.52,
+                        "sustain": 0.49051,
+                        "release": 0.6
+                    }
+                },
+                "filter": {
+                    "cutoff": 2208,
+                    "emphasis": 6.800000000000001,
+                    "envAmount": 0.67
+                },
+                "lfo": {
+                    "waveform": 2,
+                    "rate": 1,
+                    "amount": 0
+                },
+                "pitch": {
+                    "bend": 0
+                }
+            }
+        }
+    },
 	"Orchestra Pad": {
 		"version": 5,
 		"daw": {
@@ -7593,114 +8025,114 @@ module.exports = {
 			}
 		}
 	},
-	"Sirens' Awakening": {
-		"version": 6,
-		"daw": {
-			"pitch": {
-				"bend": 0
-			},
-			"modulation": {
-				"rate": 2.34375
-			},
-			"compressor": {
-				"enabled": 1,
-				"threshold": -20,
-				"ratio": 6.7,
-				"knee": 2,
-				"attack": 0.1,
-				"release": 20,
-				"makeupGain": 4.1000000000000005
-			},
-			"delay": {
-				"time": 370,
-				"feedback": 0.5670000000000001,
-				"dry": 1,
-				"wet": 0.52
-			},
-			"reverb": {
-				"level": 0.37
-			},
-			"masterVolume": {
-				"level": 0.9
-			}
-		},
-		"instruments": {
-			"synth": {
-				"polyphony": {
-					"voiceCount": 3,
-					"sustain": 0
-				},
-				"modulation": {
-					"waveform": 3,
-					"portamento": 0.034999999999999996,
-					"rate": 2.34375
-				},
-				"oscillator": {
-					"osc1": {
-						"range": -2,
-						"fineDetune": 0,
-						"waveform": 0
-					},
-					"osc2": {
-						"range": 1,
-						"fineDetune": -337.7110694183865,
-						"waveform": 2
-					},
-					"osc3": {
-						"range": 2,
-						"fineDetune": 0,
-						"waveform": 0
-					}
-				},
-				"mixer": {
-					"volume1": {
-						"enabled": 1,
-						"level": 0.49
-					},
-					"volume2": {
-						"enabled": 1,
-						"level": 0.35
-					},
-					"volume3": {
-						"enabled": 0,
-						"level": 0.6
-					}
-				},
-				"noise": {
-					"enabled": 1,
-					"level": 0,
-					"type": 2
-				},
-				"envelopes": {
-					"primary": {
-						"attack": 1.2,
-						"decay": 0.5,
-						"sustain": 0.5,
-						"release": 1.02
-					},
-					"filter": {
-						"attack": 0,
-						"decay": 0.5,
-						"sustain": 0.5,
-						"release": 0.1
-					}
-				},
-				"filter": {
-					"cutoff": 3360,
-					"emphasis": 20,
-					"envAmount": 0.29
-				},
-				"lfo": {
-					"waveform": 0,
-					"rate": 3,
-					"amount": 0.12
-				},
-				"pitch": {
-					"bend": 0
-				}
-			}
-		}
-	},
+	// "Sirens' Awakening": {
+	// 	"version": 6,
+	// 	"daw": {
+	// 		"pitch": {
+	// 			"bend": 0
+	// 		},
+	// 		"modulation": {
+	// 			"rate": 2.34375
+	// 		},
+	// 		"compressor": {
+	// 			"enabled": 1,
+	// 			"threshold": -20,
+	// 			"ratio": 6.7,
+	// 			"knee": 2,
+	// 			"attack": 0.1,
+	// 			"release": 20,
+	// 			"makeupGain": 4.1000000000000005
+	// 		},
+	// 		"delay": {
+	// 			"time": 370,
+	// 			"feedback": 0.5670000000000001,
+	// 			"dry": 1,
+	// 			"wet": 0.52
+	// 		},
+	// 		"reverb": {
+	// 			"level": 0.37
+	// 		},
+	// 		"masterVolume": {
+	// 			"level": 0.9
+	// 		}
+	// 	},
+	// 	"instruments": {
+	// 		"synth": {
+	// 			"polyphony": {
+	// 				"voiceCount": 3,
+	// 				"sustain": 0
+	// 			},
+	// 			"modulation": {
+	// 				"waveform": 3,
+	// 				"portamento": 0.034999999999999996,
+	// 				"rate": 2.34375
+	// 			},
+	// 			"oscillator": {
+	// 				"osc1": {
+	// 					"range": -2,
+	// 					"fineDetune": 0,
+	// 					"waveform": 0
+	// 				},
+	// 				"osc2": {
+	// 					"range": 1,
+	// 					"fineDetune": -337.7110694183865,
+	// 					"waveform": 2
+	// 				},
+	// 				"osc3": {
+	// 					"range": 2,
+	// 					"fineDetune": 0,
+	// 					"waveform": 0
+	// 				}
+	// 			},
+	// 			"mixer": {
+	// 				"volume1": {
+	// 					"enabled": 1,
+	// 					"level": 0.49
+	// 				},
+	// 				"volume2": {
+	// 					"enabled": 1,
+	// 					"level": 0.35
+	// 				},
+	// 				"volume3": {
+	// 					"enabled": 0,
+	// 					"level": 0.6
+	// 				}
+	// 			},
+	// 			"noise": {
+	// 				"enabled": 1,
+	// 				"level": 0,
+	// 				"type": 2
+	// 			},
+	// 			"envelopes": {
+	// 				"primary": {
+	// 					"attack": 1.2,
+	// 					"decay": 0.5,
+	// 					"sustain": 0.5,
+	// 					"release": 1.02
+	// 				},
+	// 				"filter": {
+	// 					"attack": 0,
+	// 					"decay": 0.5,
+	// 					"sustain": 0.5,
+	// 					"release": 0.1
+	// 				}
+	// 			},
+	// 			"filter": {
+	// 				"cutoff": 3360,
+	// 				"emphasis": 20,
+	// 				"envAmount": 0.29
+	// 			},
+	// 			"lfo": {
+	// 				"waveform": 0,
+	// 				"rate": 3,
+	// 				"amount": 0.12
+	// 			},
+	// 			"pitch": {
+	// 				"bend": 0
+	// 			}
+	// 		}
+	// 	}
+	// },
 	"Long Kiss": {
 		"version": 4,
 		"daw": {
@@ -7800,114 +8232,114 @@ module.exports = {
 			}
 		}
 	},
-	"Danger Bubbles": {
-		"version": 6,
-		"daw": {
-			"pitch": {
-				"bend": 0
-			},
-			"modulation": {
-				"rate": 15
-			},
-			"compressor": {
-				"enabled": 1,
-				"threshold": -20,
-				"ratio": 3,
-				"knee": 2,
-				"attack": 0.1,
-				"release": 20,
-				"makeupGain": 0
-			},
-			"delay": {
-				"time": 240,
-				"feedback": 0.801,
-				"dry": 0.92,
-				"wet": 0.16
-			},
-			"reverb": {
-				"level": 0
-			},
-			"masterVolume": {
-				"level": 1
-			}
-		},
-		"instruments": {
-			"synth": {
-				"polyphony": {
-					"voiceCount": 4,
-					"sustain": 0
-				},
-				"modulation": {
-					"waveform": 0,
-					"portamento": 0.05333333333333333,
-					"rate": 15
-				},
-				"oscillator": {
-					"osc1": {
-						"range": -2,
-						"fineDetune": 0,
-						"waveform": 3
-					},
-					"osc2": {
-						"range": -3,
-						"fineDetune": 373.7335834896812,
-						"waveform": 3
-					},
-					"osc3": {
-						"range": -4,
-						"fineDetune": 598.8742964352721,
-						"waveform": 3
-					}
-				},
-				"mixer": {
-					"volume1": {
-						"enabled": 1,
-						"level": 0.12
-					},
-					"volume2": {
-						"enabled": 1,
-						"level": 0.44
-					},
-					"volume3": {
-						"enabled": 1,
-						"level": 0.73
-					}
-				},
-				"noise": {
-					"enabled": 1,
-					"level": 0.03,
-					"type": 1
-				},
-				"envelopes": {
-					"primary": {
-						"attack": 2,
-						"decay": 1.1608399999999999,
-						"sustain": 0.73,
-						"release": 1.34
-					},
-					"filter": {
-						"attack": 1.64,
-						"decay": 1.76,
-						"sustain": 0.8201799999999999,
-						"release": 1.72
-					}
-				},
-				"filter": {
-					"cutoff": 240,
-					"emphasis": 33.2,
-					"envAmount": 0.2
-				},
-				"lfo": {
-					"waveform": 0,
-					"rate": 7,
-					"amount": 0.25
-				},
-				"pitch": {
-					"bend": 0
-				}
-			}
-		}
-	},
+	// "Danger Bubbles": {
+	// 	"version": 6,
+	// 	"daw": {
+	// 		"pitch": {
+	// 			"bend": 0
+	// 		},
+	// 		"modulation": {
+	// 			"rate": 15
+	// 		},
+	// 		"compressor": {
+	// 			"enabled": 1,
+	// 			"threshold": -20,
+	// 			"ratio": 3,
+	// 			"knee": 2,
+	// 			"attack": 0.1,
+	// 			"release": 20,
+	// 			"makeupGain": 0
+	// 		},
+	// 		"delay": {
+	// 			"time": 240,
+	// 			"feedback": 0.801,
+	// 			"dry": 0.92,
+	// 			"wet": 0.16
+	// 		},
+	// 		"reverb": {
+	// 			"level": 0
+	// 		},
+	// 		"masterVolume": {
+	// 			"level": 1
+	// 		}
+	// 	},
+	// 	"instruments": {
+	// 		"synth": {
+	// 			"polyphony": {
+	// 				"voiceCount": 4,
+	// 				"sustain": 0
+	// 			},
+	// 			"modulation": {
+	// 				"waveform": 0,
+	// 				"portamento": 0.05333333333333333,
+	// 				"rate": 15
+	// 			},
+	// 			"oscillator": {
+	// 				"osc1": {
+	// 					"range": -2,
+	// 					"fineDetune": 0,
+	// 					"waveform": 3
+	// 				},
+	// 				"osc2": {
+	// 					"range": -3,
+	// 					"fineDetune": 373.7335834896812,
+	// 					"waveform": 3
+	// 				},
+	// 				"osc3": {
+	// 					"range": -4,
+	// 					"fineDetune": 598.8742964352721,
+	// 					"waveform": 3
+	// 				}
+	// 			},
+	// 			"mixer": {
+	// 				"volume1": {
+	// 					"enabled": 1,
+	// 					"level": 0.12
+	// 				},
+	// 				"volume2": {
+	// 					"enabled": 1,
+	// 					"level": 0.44
+	// 				},
+	// 				"volume3": {
+	// 					"enabled": 1,
+	// 					"level": 0.73
+	// 				}
+	// 			},
+	// 			"noise": {
+	// 				"enabled": 1,
+	// 				"level": 0.03,
+	// 				"type": 1
+	// 			},
+	// 			"envelopes": {
+	// 				"primary": {
+	// 					"attack": 2,
+	// 					"decay": 1.1608399999999999,
+	// 					"sustain": 0.73,
+	// 					"release": 1.34
+	// 				},
+	// 				"filter": {
+	// 					"attack": 1.64,
+	// 					"decay": 1.76,
+	// 					"sustain": 0.8201799999999999,
+	// 					"release": 1.72
+	// 				}
+	// 			},
+	// 			"filter": {
+	// 				"cutoff": 240,
+	// 				"emphasis": 33.2,
+	// 				"envAmount": 0.2
+	// 			},
+	// 			"lfo": {
+	// 				"waveform": 0,
+	// 				"rate": 7,
+	// 				"amount": 0.25
+	// 			},
+	// 			"pitch": {
+	// 				"bend": 0
+	// 			}
+	// 		}
+	// 	}
+	// },
 	"Syo - demo": {
 		"version": 6,
 		"daw": {
@@ -8646,6 +9078,114 @@ module.exports = {
 			}
 		}
 	},
+    "Wow - Cats": {
+        "version": 6,
+        "daw": {
+            "pitch": {
+                "bend": 0
+            },
+            "modulation": {
+                "rate": 0.234375
+            },
+            "compressor": {
+                "enabled": 1,
+                "threshold": -26.5,
+                "ratio": 3.9000000000000004,
+                "knee": 12.9,
+                "attack": 859.3100000000001,
+                "release": 249.1,
+                "makeupGain": 0.5
+            },
+            "delay": {
+                "time": 660,
+                "feedback": 0.47700000000000004,
+                "dry": 1,
+                "wet": 0
+            },
+            "reverb": {
+                "level": 0.09
+            },
+            "masterVolume": {
+                "level": 0.52
+            }
+        },
+        "instruments": {
+            "synth": {
+                "polyphony": {
+                    "voiceCount": 7,
+                    "sustain": 0
+                },
+                "modulation": {
+                    "waveform": 0,
+                    "portamento": 0.065,
+                    "rate": 0.234375
+                },
+                "oscillator": {
+                    "osc1": {
+                        "range": 1,
+                        "fineDetune": 0,
+                        "waveform": 4
+                    },
+                    "osc2": {
+                        "range": -1,
+                        "fineDetune": 800,
+                        "waveform": 2
+                    },
+                    "osc3": {
+                        "range": -3,
+                        "fineDetune": -87.55472170106316,
+                        "waveform": 2
+                    }
+                },
+                "mixer": {
+                    "volume1": {
+                        "enabled": 1,
+                        "level": 0.17
+                    },
+                    "volume2": {
+                        "enabled": 1,
+                        "level": 0.44
+                    },
+                    "volume3": {
+                        "enabled": 0,
+                        "level": 0.75
+                    }
+                },
+                "noise": {
+                    "enabled": 1,
+                    "level": 0,
+                    "type": 1
+                },
+                "envelopes": {
+                    "primary": {
+                        "attack": 0.96,
+                        "decay": 0.74126,
+                        "sustain": 0.27,
+                        "release": 1.04
+                    },
+                    "filter": {
+                        "attack": 1,
+                        "decay": 0.56,
+                        "sustain": 0.66034,
+                        "release": 1.42
+                    }
+                },
+                "filter": {
+                    "cutoff": 3200,
+                    "emphasis": 23.200000000000003,
+                    "envAmount": 0.57
+                },
+                "lfo": {
+                    "waveform": 1,
+                    "rate": 3,
+                    "amount": 0
+                },
+                "pitch": {
+                    "bend": 0
+                }
+            }
+        }
+    },
 	"Outer Space": {
 		"version": 6,
 		"daw": {

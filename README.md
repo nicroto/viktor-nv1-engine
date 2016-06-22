@@ -818,6 +818,20 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.7.1
+ 	 * Fix: Envelope: too quick release clips.
+ 	 * Fix: changing patches often causes loud glitches.
+ 	 * Fix: Library: error on load when selected patch doesn't exist.
+ 	 * Add: Patch: "EQUIVALENT-CHORD-PAD-1".
+ 	 * Add: Patch: "EQUIVALENT-CHORD-PAD-2".
+ 	 * Add: Patch: "Gryphon 1977".
+ 	 * Add: Patch: "Gryphon 1979".
+ 	 * Add: Patch: "Wow - Cats".
+ 	 * TemporaryFix: Chrome's newest Web Audio breaks patches:
+	 	 * TemporaryRemove: Patch: "Danger Bubbles".
+	 	 * TemporaryRemove: Patch: "Sirens' Awakening".
+	 	 * TemporaryRemove: Patch: "Cooh bass 1".
+	 	 * TemporaryRemove: Patch: "BRAINPAIN Mod Wheel Frenzy".
  * 1.7
  	 * Add: Patch: "EQUIVALENT-BASS-1".
  	 * Add: Patch: "BRAINPAIN Mod Wheel Frenzy".
