@@ -818,6 +818,10 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.7.2
+	 * Fix: ChromeIssue: with latest update AudioParam.setTargetAtTime doesn't accept 0 as last param.
+	 * Improve: order of default patches;
+	 * TemporaryFix: Chrome's newest Web Audio breaks patches - had to disable a couple of patches.
  * 1.7.1
  	 * Fix: Envelope: too quick release clips.
  	 * Fix: changing patches often causes loud glitches.

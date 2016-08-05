@@ -1,7 +1,9 @@
 'use strict';
 
-var FAKE_ZERO = 0.00001,
-	ONE_MILLISECOND_IN_SECONDS = 0.001;
+var CONST = require( "./const" );
+
+
+var ONE_MILLISECOND_IN_SECONDS = 0.001;
 
 function customOrDefault( customValue, defaultValue ) {
 	return customValue !== undefined ? customValue : defaultValue;
@@ -28,14 +30,14 @@ Envelope.prototype = {
 			propName = self.propName,
 			upperBound = self.upperBound * upperBoundMultiplier,
 			node = self.node,
-			attack = self.attack,
-			decay = self.decay,
+			attack = self.attack || CONST.FAKE_ZERO,
+			decay = self.decay || CONST.FAKE_ZERO,
 			sustain = self.sustain;
 
 		time = customOrDefault( time, audioContext.currentTime );
 
 		node[ propName ].cancelScheduledValues( time );
-		node[ propName ].setTargetAtTime( FAKE_ZERO, time, 0.01 );
+		node[ propName ].setTargetAtTime( CONST.FAKE_ZERO, time, 0.01 );
 		node[ propName ].setTargetAtTime( upperBound, time + 0.01, attack / 2 );
 		node[ propName ].setTargetAtTime( sustain * upperBound, time + 0.01 + attack, decay / 2 );
 	},
@@ -50,7 +52,7 @@ Envelope.prototype = {
 		time = customOrDefault( time, audioContext.currentTime );
 
 		node[ propName ].cancelScheduledValues( time );
-		node[ propName ].setTargetAtTime( FAKE_ZERO, time, release );
+		node[ propName ].setTargetAtTime( CONST.FAKE_ZERO, time, release );
 	}
 
 };

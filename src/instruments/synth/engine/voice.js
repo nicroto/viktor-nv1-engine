@@ -126,7 +126,7 @@ Voice.prototype = {
 			gainEnvelope = self.gainEnvelope,
 			filterEnvelope = self.filterEnvelope,
 			pressedNotes = self.pressedNotes,
-			portamento = self.settings.modulation.portamento.value,
+			portamento = self.settings.modulation.portamento.value || CONST.FAKE_ZERO,
 			pressedNotesCount = pressedNotes.length,
 			hasANoteDown = pressedNotesCount > 0,
 			pressedPosition = pressedNotes.indexOf( noteFrequency ),
@@ -168,7 +168,7 @@ Voice.prototype = {
 			gainEnvelope = self.gainEnvelope,
 			filterEnvelope = self.filterEnvelope,
 			pressedNotes = self.pressedNotes,
-			portamento = self.settings.modulation.portamento.value,
+			portamento = self.settings.modulation.portamento.value || CONST.FAKE_ZERO,
 			position = pressedNotes.indexOf( noteFrequency );
 
 		if ( position !== -1 ) {
