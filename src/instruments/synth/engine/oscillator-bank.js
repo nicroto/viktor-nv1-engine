@@ -10,11 +10,12 @@ function OscillatorBank( audioContext, count ) {
 	var self = this,
 		oscillators = [],
 		volumes = [],
-		output = audioContext.createGain();
+		output = audioContext.createGain(),
+		currentTime = audioContext.currentTime;
 
 	count = count || DEFAULT_OSCILLATOR_COUNT;
 
-	output.gain.setValueAtTime( 1, 0 );
+	output.gain.setValueAtTime( 1, currentTime );
 
 	for ( var i = 0; i < count; i++ ) {
 		var osc = audioContext.createOscillator(),
@@ -23,9 +24,9 @@ function OscillatorBank( audioContext, count ) {
 		volume.gain.value = 0.0;
 		volume.connect( output );
 
-		osc.frequency.setValueAtTime( 110, 0 );
+		osc.frequency.setValueAtTime( 110, currentTime );
 		osc.connect( volume );
-		osc.start( 0 );
+		osc.start();
 
 		volumes.push( volume );
 		oscillators.push( osc );
@@ -182,7 +183,7 @@ OscillatorBank.prototype = {
 					set: function( value ) {
 						level = value;
 
-						vol.gain.setValueAtTime( level, 0 );
+						vol.gain.setValueAtTime( level, self.audioContext.currentTime );
 					}
 
 				} );
@@ -221,16 +222,20 @@ OscillatorBank.prototype = {
 	},
 
 	_setNoteToOscillator: function( oscillator, note ) {
+		var self = this;
+
 		oscillator.frequency.cancelScheduledValues( 0 );
 		oscillator.frequency.setTargetAtTime(
 			note.frequency,
-			0,
+			self.audioContext.currentTime,
 			note.portamento
 		);
 	},
 
 	_resolveDetune: function( octave, semitone, cent, pitchBend, oscillator ) {
-		oscillator.detune.setValueAtTime( octave * OCTAVE_CENTS + semitone * SEMITONE_CENTS + cent + pitchBend, 0 );
+		var self = this;
+
+		oscillator.detune.setValueAtTime( octave * OCTAVE_CENTS + semitone * SEMITONE_CENTS + cent + pitchBend, self.audioContext.currentTime );
 	}
 
 };

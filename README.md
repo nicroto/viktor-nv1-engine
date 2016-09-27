@@ -818,6 +818,8 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.7.3
+	 * Fix: breaking change in Chrome (53...), AudioParam.setValueAtTime doesn't accept 0 for time (only a value relative to context.currentTime).
  * 1.7.2
 	 * Fix: ChromeIssue: with latest update AudioParam.setTargetAtTime doesn't accept 0 as last param.
 	 * Improve: order of default patches;
