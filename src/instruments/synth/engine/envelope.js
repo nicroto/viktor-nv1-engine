@@ -10,12 +10,13 @@ function customOrDefault( customValue, defaultValue ) {
 }
 
 
-function Envelope( audioContext, propName, upperBound ) {
+function Envelope( audioContext, propName, upperBound, lowerBound ) {
 	var self = this;
 
 	self.audioContext = audioContext;
 	self.propName = propName;
 	self.upperBound = upperBound;
+	self.lowerBound = lowerBound || CONST.FAKE_ZERO;
 
 	self.node = null;
 
@@ -37,7 +38,7 @@ Envelope.prototype = {
 		time = customOrDefault( time, audioContext.currentTime );
 
 		node[ propName ].cancelScheduledValues( time );
-		node[ propName ].setTargetAtTime( CONST.FAKE_ZERO, time, 0.01 );
+		node[ propName ].setTargetAtTime( self.lowerBound, time, 0.01 );
 		node[ propName ].setTargetAtTime( upperBound, time + 0.01, attack / 2 );
 		node[ propName ].setTargetAtTime( sustain * upperBound, time + 0.01 + attack, decay / 2 );
 	},
@@ -52,7 +53,7 @@ Envelope.prototype = {
 		time = customOrDefault( time, audioContext.currentTime );
 
 		node[ propName ].cancelScheduledValues( time );
-		node[ propName ].setTargetAtTime( CONST.FAKE_ZERO, time, release );
+		node[ propName ].setTargetAtTime( self.lowerBound, time, release );
 	}
 
 };

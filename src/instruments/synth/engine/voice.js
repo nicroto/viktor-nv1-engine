@@ -25,11 +25,12 @@ function Voice( audioContext ) {
 
 		envelopeFilterMix = new Mix( audioContext, uiControlledFilter.node, envelopeControlledFilter.node ),
 		lfoFilterMix = new Mix( audioContext, envelopeFilterMix.output, lfoControlledFilter.node ),
-		filterEnvelope = new Envelope( audioContext, "frequency", CONST.FILTER_FREQUENCY_UPPER_BOUND ),
+		filterEnvelope = new Envelope( audioContext, "frequency", CONST.FILTER_FREQUENCY_UPPER_BOUND, CONST.FILTER_FREQUENCY_LOWER_BOUND ),
 		filterLfo = new LFO( audioContext, [ lfoControlledFilter.node ], "frequency", {
 			rate: CONST.LFO_DEFAULT_RATE,
 			defaultForm: CONST.LFO_DEFAULT_FORM,
-			centerFrequency: CONST.LFO_DEFAULT_FREQUENCY_RANGE
+			centerFrequency: CONST.LFO_DEFAULT_FREQUENCY_CENTER,
+			frequencyRange: CONST.LFO_DEFAULT_FREQUENCY_RANGE
 		} ),
 		masterVolume = audioContext.createGain();
 

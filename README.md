@@ -818,6 +818,11 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 1.8.0
+	 * Add: Envelope: lower boundary;
+	 * Fix: Filter Envelope: frequency shouldn’t go down under 1Hz;
+	 * Fix: Filter LFO: shouldn’t get filter frequency to anything lower than 1Hz;
+	 * Reenable: all disabled patches.
  * 1.7.3
 	 * Fix: breaking change in Chrome (53...), AudioParam.setValueAtTime doesn't accept 0 for time (only a value relative to context.currentTime).
  * 1.7.2
