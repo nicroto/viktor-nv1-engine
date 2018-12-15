@@ -14,15 +14,7 @@ $ npm --save viktor-nv1-engine
 var NV1Engine = require( "viktor-nv1-engine" ),
 	AudioContext = global.AudioContext || global.webkitAudioContext,
 	store = require( "store" ),
-	dawEngine,
-	patchLibrary;
-
-NV1Engine.create( AudioContext, store, function( dEngine, pLibrary ) {
-
-	dawEngine = dEngine;
-	patchLibrary = pLibrary;
-
-} );
+	{dawEngine, patchLibrary} = NV1Engine.create( AudioContext, store);
 ```
 
 If you want even more control on the init process of the engine, you should check the implementation of the `NV1Engine.create()` function, which right now looks like this:
