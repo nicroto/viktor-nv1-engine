@@ -8,6 +8,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	ENGINE_VERSION_4 = 4,
 	ENGINE_VERSION_5 = 5,
 	ENGINE_VERSION_6 = 6,
+	ENGINE_VERSION_7 = 7,
 	CURRENT_ENGINE_VERSION = "ENGINE_VERSION_" + CONST.ENGINE_VERSION;
 
 var patchLoader = {
@@ -41,6 +42,10 @@ var patchLoader = {
 
 			case ENGINE_VERSION_6:
 				alteredPatch = self._loadVersion6Patch( alteredPatch );
+				break;
+
+			case ENGINE_VERSION_7:
+				alteredPatch = self._loadVersion7Patch( alteredPatch );
 				break;
 
 			default:
@@ -82,6 +87,7 @@ var patchLoader = {
 
 		self._defaultPatchToMonosynth( patch );
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToNoArpeggiator( patch );
 		self._transposeRanges( patch, newRangeLibrary );
 
 		return patch;
@@ -94,6 +100,7 @@ var patchLoader = {
 
 		self._defaultPatchToMonosynth( patch );
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToNoArpeggiator( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -114,6 +121,7 @@ var patchLoader = {
 			range: newRangeLibrary.instruments.synth.polyphony.sustain
 		};
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToNoArpeggiator( patch );
 
 		self._applyRange( patch, rangeLibrary );
 
@@ -131,6 +139,7 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToNoArpeggiator( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -147,6 +156,7 @@ var patchLoader = {
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._defaultPatchToNoCompression( patch );
+		self._defaultPatchToNoArpeggiator( patch );
 		self._applyRange( patch, rangeLibrary );
 
 		// if the current version of the engine is newer
@@ -160,6 +170,22 @@ var patchLoader = {
 	_loadVersion6Patch: function( patch ) {
 		var self = this,
 			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_6,
+			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
+
+		self._defaultPatchToNoArpeggiator( patch );
+		self._applyRange( patch, rangeLibrary );
+
+		// if the current version of the engine is newer
+		if ( rangeLibrary !== newRangeLibrary ) {
+			self._transposeRanges( patch, newRangeLibrary );
+		}
+
+		return patch;
+	},
+
+	_loadVersion7Patch: function( patch ) {
+		var self = this,
+			rangeLibrary = CONST.RANGE_LIBRARY.ENGINE_VERSION_7,
 			newRangeLibrary = CONST.RANGE_LIBRARY[ CURRENT_ENGINE_VERSION ];
 
 		self._applyRange( patch, rangeLibrary );
@@ -189,6 +215,11 @@ var patchLoader = {
 
 	_defaultPatchToNoCompression: function( patch ) {
 		patch.daw.compressor = CONST.DEFAULT_COMPRESSOR_SETTINGS;
+	},
+
+	_defaultPatchToNoArpeggiator: function( patch ) {
+		patch.daw.arpeggiator = CONST.DEFAULT_ARPEGGIATOR_SETTINGS;
+		patch.daw.tempo = CONST.DEFAULT_TEMPO_SETTINGS;
 	},
 
 	_transposeRanges: function( patch, rangeLibrary ) {

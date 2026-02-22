@@ -4,6 +4,7 @@ var settingsConvertor = require( "viktor-nv1-settings-convertor" ),
 	CONST = require( "./engine/const" ),
 	patchLoader = require( "./engine/patch-loader" ),
 	MIDIController = require( "./engine/midi" ),
+	Arpeggiator = require( "./engine/arpeggiator" ),
 	Tuna = require( "./non-npm/tuna/tuna.js" );
 
 function DAW( AudioContext, instrumentTypes, selectedPatch ) {
@@ -26,6 +27,7 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.selectedPatch = selectedPatch;
 	self.instrumentTypes = instrumentTypes;
 	self.midiController = new MIDIController();
+	self.arpeggiator = new Arpeggiator( audioContext );
 	self.compressor = compressor;
 	self.delay = delay;
 	self.reverb = reverb;
@@ -40,7 +42,9 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 		compressor: null,
 		delay: null,
 		reverb: null,
-		masterVolume: null
+		masterVolume: null,
+		arpeggiator: null,
+		tempo: null
 	};
 	self._patchChangeHandlers = [];
 
@@ -52,6 +56,10 @@ function DAW( AudioContext, instrumentTypes, selectedPatch ) {
 	self.delaySettings = CONST.DEFAULT_DELAY_SETTINGS;
 	self.reverbSettings = CONST.DEFAULT_REVERB_SETTINGS;
 	self.masterVolumeSettings = CONST.DEFAULT_MASTER_VOLUME_SETTINGS;
+	self.arpeggiatorSettings = CONST.DEFAULT_ARPEGGIATOR_SETTINGS;
+	self.tempoSettings = CONST.DEFAULT_TEMPO_SETTINGS;
+
+	self._setupArpeggiatorCallback();
 
 	self.init();
 }
@@ -155,7 +163,8 @@ DAW.prototype = {
 	propagateMidiMessage: function( eventType, parsed, rawEvent ) {
 		var self = this,
 			selectedInstrument = self.selectedInstrument,
-			externalHandlers = self.externalMidiMessageHandlers;
+			externalHandlers = self.externalMidiMessageHandlers,
+			arpeggiator = self.arpeggiator;
 
 		if ( eventType === "volume" ) {
 			self.masterVolumeSettings = {
@@ -163,7 +172,15 @@ DAW.prototype = {
 			};
 		}
 
-		selectedInstrument.onMidiMessage( eventType, parsed, rawEvent );
+		if ( eventType === "notePress" && arpeggiator.enabled ) {
+			if ( parsed.isNoteOn ) {
+				arpeggiator.addNote( parsed.noteFrequency, parsed.velocity );
+			} else {
+				arpeggiator.removeNote( parsed.noteFrequency );
+			}
+		} else {
+			selectedInstrument.onMidiMessage( eventType, parsed, rawEvent );
+		}
 
 		externalHandlers.forEach( function( handler ) {
 			handler( eventType, parsed, rawEvent );
@@ -338,6 +355,94 @@ DAW.prototype = {
 			}
 		} );
 
+		Object.defineProperty( self, "arpeggiatorSettings", {
+			get: function() {
+				var self = this;
+
+				return JSON.parse( JSON.stringify( self.settings.arpeggiator ) );
+			},
+			set: function( settings ) {
+				var self = this,
+					oldSettings = self.settings.arpeggiator ||
+						{ enabled: {}, hold: {}, reset: {}, direction: {}, rate: {}, range: {}, gate: {}, scale: {}, velSlope: {} },
+					arpeggiator = self.arpeggiator;
+
+				if ( oldSettings.enabled.value !== settings.enabled.value ) {
+					arpeggiator.enabled = ( settings.enabled.value === 1 );
+					if ( !arpeggiator.enabled ) {
+						arpeggiator.releaseAllNotes();
+					}
+				}
+				if ( oldSettings.hold.value !== settings.hold.value ) {
+					arpeggiator.hold = ( settings.hold.value === 1 );
+					if ( !arpeggiator.hold ) {
+						arpeggiator.releaseAllNotes();
+					}
+				}
+				if ( oldSettings.reset.value !== settings.reset.value ) {
+					arpeggiator.reset = ( settings.reset.value === 1 );
+				}
+				if ( oldSettings.direction.value !== settings.direction.value ) {
+					arpeggiator.direction = settings.direction.value;
+				}
+				if ( oldSettings.rate.value !== settings.rate.value ) {
+					arpeggiator.rate = settings.rate.value;
+				}
+				if ( oldSettings.range.value !== settings.range.value ) {
+					arpeggiator.range = settings.range.value;
+					arpeggiator._rebuildExpandedNotes();
+				}
+				if ( oldSettings.gate.value !== settings.gate.value ) {
+					arpeggiator.gate = settings.gate.value;
+				}
+				if ( oldSettings.scale.value !== settings.scale.value ) {
+					arpeggiator.scale = settings.scale.value;
+				}
+				if ( oldSettings.velSlope.value !== settings.velSlope.value ) {
+					arpeggiator.velSlope = settings.velSlope.value;
+				}
+
+				self.settings.arpeggiator = JSON.parse( JSON.stringify( settings ) );
+			}
+		} );
+
+		Object.defineProperty( self, "tempoSettings", {
+			get: function() {
+				var self = this;
+
+				return JSON.parse( JSON.stringify( self.settings.tempo ) );
+			},
+			set: function( settings ) {
+				var self = this,
+					oldSettings = self.settings.tempo || { bpm: {} },
+					arpeggiator = self.arpeggiator;
+
+				if ( oldSettings.bpm.value !== settings.bpm.value ) {
+					arpeggiator.bpm = settings.bpm.value;
+				}
+
+				self.settings.tempo = JSON.parse( JSON.stringify( settings ) );
+			}
+		} );
+
+	},
+
+	_setupArpeggiatorCallback: function() {
+		var self = this,
+			arpeggiator = self.arpeggiator;
+
+		arpeggiator.setNoteCallback( function( freq, velocity, isNoteOn, time ) {
+			var selectedInstrument = self.selectedInstrument;
+
+			if ( selectedInstrument ) {
+				selectedInstrument.onMidiMessage( "notePress", {
+					isNoteOn: isNoteOn,
+					noteFrequency: freq,
+					velocity: velocity,
+					time: time
+				} );
+			}
+		} );
 	}
 
 };

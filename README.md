@@ -473,6 +473,42 @@ Check the daw.delaySettings for reference on getting and setting a daw setting p
 
 Check the daw.delaySettings for reference on getting and setting a daw setting property.
 
+#### `daw.arpeggiatorSettings` property
+
+`Object` with structure:
+
+```javascript
+{
+	enabled: NV1Param,   // 0 or 1
+	hold: NV1Param,      // 0 or 1
+	reset: NV1Param,     // 0 or 1
+	direction: NV1Param, // 0=Up, 1=Down, 2=Up/Down, 3=Down/Up, 4=Random
+	rate: NV1Param,      // 0=1/4, 1=1/8, 2=1/16, 3=1/8T, 4=1/16T
+	range: NV1Param,     // 1-3 (octaves)
+	gate: NV1Param,      // 0.1-1 (note duration ratio)
+	scale: NV1Param,     // 0=Off, 1=Major, 2=Minor, 3=Pentatonic, 4=Blues
+	velSlope: NV1Param   // -1 to 1 (velocity curve across steps)
+}
+```
+
+**You should only set the full object not individual properties!**
+
+Check the daw.delaySettings for reference on getting and setting a daw setting property.
+
+#### `daw.tempoSettings` property
+
+`Object` with structure:
+
+```javascript
+{
+	bpm: NV1Param // 60-180
+}
+```
+
+**You should only set the full object not individual properties!**
+
+Check the daw.delaySettings for reference on getting and setting a daw setting property.
+
 ### Synth
 
 ```javascript
@@ -818,6 +854,19 @@ Overrides the list of custom patches with another one.
 
 ## Release History
 
+ * 2.0.0 (unreleased)
+	 * Add: Arpeggiator engine with Web Audio scheduler-based timing;
+	 * Add: Arpeggiator directions: Up, Down, Up/Down, Down/Up, Random;
+	 * Add: Arpeggiator rate divisions: 1/4, 1/8, 1/16, 1/8 triplet, 1/16 triplet;
+	 * Add: Arpeggiator octave range (1-3 octaves);
+	 * Add: Arpeggiator gate control for note duration;
+	 * Add: Arpeggiator scale quantization: Major, Minor, Pentatonic, Blues;
+	 * Add: Arpeggiator velocity slope;
+	 * Add: Arpeggiator hold and reset modes;
+	 * Add: Tempo (BPM) setting at the DAW level;
+	 * Add: `daw.arpeggiatorSettings` and `daw.tempoSettings` properties;
+	 * Improve: MIDI note messages pass a `time` parameter through instrument/voice chain for accurate Web Audio scheduling;
+	 * Bump: Engine version to 7 (backward-compatible patch loading with arpeggiator/tempo defaults for older patches).
  * 1.8.0
 	 * Add: Envelope: lower boundary;
 	 * Fix: Filter Envelope: frequency shouldn’t go down under 1Hz;
