@@ -101,7 +101,7 @@ Instrument.prototype = {
 		if ( eventType === "notePress" ) {
 			var methodName = ( parsed.isNoteOn ) ? "onNoteOn" : "onNoteOff";
 
-			self[ methodName ]( parsed.noteFrequency, parsed.velocity );
+			self[ methodName ]( parsed.noteFrequency, parsed.velocity, parsed.time );
 		} else if ( eventType === "sustain" ) {
 			var polyphonySettings = self.polyphonySettings;
 
@@ -115,7 +115,7 @@ Instrument.prototype = {
 		}
 	},
 
-	onNoteOn: function( noteFrequency, velocity ) {
+	onNoteOn: function( noteFrequency, velocity, time ) {
 		var self = this,
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
@@ -155,14 +155,14 @@ Instrument.prototype = {
 
 		voicesInUse.push( availableVoice );
 
-		availableVoice.onNoteOn( noteFrequency, velocity );
+		availableVoice.onNoteOn( noteFrequency, velocity, time );
 		frequencyVoiceMap[ noteFrequency ] = availableVoice;
 		if ( isSustainOn ) {
 			sustainedFrequencyVoiceMap[ noteFrequency ] = availableVoice;
 		}
 	},
 
-	onNoteOff: function( noteFrequency, velocity ) {
+	onNoteOff: function( noteFrequency, velocity, time ) {
 		var self = this,
 			voicesInUse = self.voicesInUse,
 			voicesAvailable = self.voicesAvailable,
@@ -176,7 +176,7 @@ Instrument.prototype = {
 			return;
 		}
 
-		usedVoice.onNoteOff( noteFrequency, velocity );
+		usedVoice.onNoteOff( noteFrequency, velocity, time );
 		delete frequencyVoiceMap[ noteFrequency ];
 
 		if ( usedVoice.pressedNotes.length ) {

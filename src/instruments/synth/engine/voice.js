@@ -113,7 +113,7 @@ Voice.prototype = {
 		if ( eventType === "notePress" ) {
 			var methodName = ( parsed.isNoteOn ) ? "onNoteOn" : "onNoteOff";
 
-			self[ methodName ]( parsed.noteFrequency, parsed.velocity );
+			self[ methodName ]( parsed.noteFrequency, parsed.velocity, parsed.time );
 		} else if ( eventType === "pitchBend" ) {
 			self.onPitchBend( parsed.pitchBend );
 		} else if ( eventType === "modulationWheel" ) {
@@ -121,7 +121,7 @@ Voice.prototype = {
 		}
 	},
 
-	onNoteOn: function( noteFrequency, velocity ) {
+	onNoteOn: function( noteFrequency, velocity, time ) {
 		var self = this,
 			oscillatorBank = self.oscillatorBank,
 			gainEnvelope = self.gainEnvelope,
@@ -155,15 +155,15 @@ Voice.prototype = {
 			portamento: portamento
 		};
 
-		gainEnvelope.start( attackPeak );
-		filterEnvelope.start( attackPeak );
+		gainEnvelope.start( attackPeak, time );
+		filterEnvelope.start( attackPeak, time );
 
 		if ( self._isSustainOn ) {
 			self.sustainedNote = noteFrequency;
 		}
 	},
 
-	onNoteOff: function( noteFrequency, velocity ) {
+	onNoteOff: function( noteFrequency, velocity, time ) {
 		var self = this,
 			oscillatorBank = self.oscillatorBank,
 			gainEnvelope = self.gainEnvelope,
@@ -177,8 +177,8 @@ Voice.prototype = {
 		}
 
 		if ( pressedNotes.length === 0 && !self._isSustainOn ) {
-			gainEnvelope.end();
-			filterEnvelope.end();
+			gainEnvelope.end( time );
+			filterEnvelope.end( time );
 		} else if ( pressedNotes.length > 0 ) {
 			noteFrequency = pressedNotes[ pressedNotes.length - 1 ];
 
