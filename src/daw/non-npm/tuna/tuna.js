@@ -615,7 +615,7 @@ Tuna.prototype.Compressor.prototype = Object.create(Super, {
             return this.compNode.release;
         },
         set: function (value) {
-            this.compNode.release = value / 1000;
+            this.compNode.release.value = value / 1000;
         }
     },
     makeupGain: {
